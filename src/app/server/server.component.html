@@ -1,0 +1,34 @@
+<div *ngIf="server" style="color: #fff; background-color: #202025;">
+  <p style="color: #396FE2;">
+    ======================================<br>
+    <strong style="margin-left: 10px">{{server.name}}</strong><br>
+    ======================================<br>
+  </p>
+  <p>
+    Environment : <strong style="color: #9ECE58;">{{server.env}}</strong><br>
+    Zone : <strong style="color: #396FE2;">{{server.zone}}</strong><br>
+    Ips : <strong style="color: #9ECE58;">{{server.ip}}</strong><br>
+    OS : <strong>{{server.os_name}} {{server.os_version}}</strong><br>
+    CPU : <strong>{{server.cpu}}</strong>  RAM : <strong>{{server.ram}}</strong> Mo<br>
+    Status : <strong style="color: #C3E88D;">{{server.status}}</strong> since {{server.date_maj_status}}<br>
+  </p>
+  <p>
+    <span style="color: #BB80B3;">
+      === Partitions ===
+    </span><br>
+    <span *ngFor="let partition of server.partitions" style="margin-left: 10px;">
+      {{partition.name}} - {{partition.mount}} - {{partition.size / 1024 / 1024}}MiB<br>
+    </span>
+  </p>
+  <p>
+    <span style="color: #C3E88D;">
+      === Installed components ===
+    </span><br>
+    <span *ngFor="let installation of server.installations" style="margin-left: 10px;">
+      <strong style="color: #2DDAFD;">{{installation.component_name}}</strong> - port: <strong style="color: #C3E88D;">{{installation.ports}}</strong><br>
+    </span>
+  </p>
+</div>
+<div *ngIf="!server" style="color: red; background-color: #202025;">
+  Server not found !
+</div>

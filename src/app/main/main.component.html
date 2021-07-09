@@ -1,0 +1,4 @@
+<div [ngSwitch]="page">
+  <h2 *ngSwitchCase="'home'">Home page</h2>
+  <thotify-server *ngSwitchCase="'server'" [serverName]="value"></thotify-server>
+</div>
