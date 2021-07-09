@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
+import { environment } from './../../environments/environment';
+
 
 @Component({
   selector: 'thotify-main',
@@ -10,9 +12,11 @@ import { map } from 'rxjs/operators';
 })
 export class MainComponent implements OnInit, OnDestroy {
 
-  private sub: Subscription = new Subscription()
-  page: string = 'home'
-  value: string = ''
+  private sub: Subscription = new Subscription();
+  page: string = 'home';
+  value: string = '';
+
+  public version: string = environment.version;
 
   constructor(
     private route: ActivatedRoute
@@ -21,11 +25,19 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub.add(
-      this.route.queryParams.subscribe(
-        params => {
-          this.page = params["page"]
-          this.value = params["value"]
-        }
+      this.route.queryParams.pipe(
+        map(params => params["page"]),
+        filter(Boolean)
+      ).subscribe(
+        page => this.page = page as string
+      ));
+
+    this.sub.add(
+      this.route.queryParams.pipe(
+        map(params => params["value"]),
+        filter(Boolean)
+      ).subscribe(
+        value => this.value = value as string
       ));
   }
 

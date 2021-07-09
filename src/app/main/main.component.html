@@ -1,4 +1,8 @@
-<div [ngSwitch]="page">
-  <h2 *ngSwitchCase="'home'">Home page</h2>
+<div [ngSwitch]="page" id="page">
+  <div *ngSwitchCase="'home'">
+    <img src="./assets/images/thot_48.png"/>
+    <h2>Thotify</h2>
+    <p>Version: {{version}}</p>
+  </div>
   <thotify-server *ngSwitchCase="'server'" [serverName]="value"></thotify-server>
 </div>

@@ -1,4 +1,4 @@
-<div *ngIf="server" style="color: #fff; background-color: #202025;">
+<div *ngIf="server">
   <p style="color: #396FE2;">
     ======================================<br>
     <strong style="margin-left: 10px">{{server.name}}</strong><br>
@@ -29,6 +29,9 @@
     </span>
   </p>
 </div>
-<div *ngIf="!server" style="color: red; background-color: #202025;">
-  Server not found !
+<div *ngIf="error" style="color: red; background-color: #202025;">
+  {{error.message}}
+</div>
+<div *ngIf="pending" style="color: blue; background-color: #202025;">
+  loading...
 </div>

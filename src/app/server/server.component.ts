@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators'
+import { throttleTime } from 'rxjs/operators';
 import { ThotService } from '../thot.service';
 
 import { Server } from './server.model';
@@ -15,33 +13,35 @@ import { Server } from './server.model';
 export class ServerComponent implements OnInit, OnDestroy {
 
   server: Server|undefined;
-  private sub: Subscription = new Subscription()
+  error: any;
+
+  pending: boolean = false;
 
   @Input() set serverName(serverName: string) {
+    this.pending = true;
+    this.error = undefined;
     this.thotService.getServer(serverName).subscribe(
-      server => this.server = server
+      server => {
+        this.server = server;
+        this.pending = false;
+      },
+      error => {
+        this.error = error;
+        console.log(error)
+        this.pending = false;
+      }
     );
   }
 
   constructor(
-    private route: ActivatedRoute,
     private thotService: ThotService,
   ) { }
 
 
   ngOnInit(): void {
-    this.sub.add(
-      this.route.params.pipe(
-        map( params => params["value"]),
-        switchMap(serverName => this.thotService.getServer(serverName))
-      ).subscribe(
-        server => this.server = server,
-        error => console.error(error)
-      ));
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
   }
 
 }
