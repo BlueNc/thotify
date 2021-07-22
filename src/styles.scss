@@ -1,9 +1,144 @@
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+
+$red: #D62341;
+$green: #9ECE58;
+$yellow: #FAED70;
+$blue: #396FE2;
+$magenta: #BB80B3;
+$cyan: #2DDAFD;
+$white: #d0d0d0;
+$bright_black: rgba(255, 255, 255, 0.2);
+$bright_red: #FF5370;
+$bright_green: #C3E88D;
+$bright_yellow: #FFCB6B;
+$bright_blue: #82AAFF;
+$bright_magenta: #C792EA;
+$bright_cyan: #89DDFF;
+$bright_white: #ffffff;
+
+
 html, body {
   min-height: 100%;
 }
 
 body {
-  color: #fff;
+  color: $white;
   background-color: #202025;
   margin: 0px;
+}
+
+.ok {
+  color: $green;
+}
+
+.ko {
+  color: $red;
+}
+
+
+.warning {
+  color: $bright_red;
+}
+
+
+.active {
+  color: $green;
+}
+
+.inactive {
+  color: $red;
+}
+
+
+.new {
+  color: $green;
+}
+
+.old {
+  color: $red;
+}
+
+.faded {
+  color: $bright_black;
+}
+
+
+.application {
+  color: $blue;
+}
+
+.direction {
+  color: $yellow;
+}
+
+.component {
+  color: $cyan;
+}
+
+.installation {
+  color: $bright_green;
+}
+
+.environment {
+  color: $green;
+}
+
+.zone {
+  color: $blue;
+}
+
+.ip {
+  color: $bright_yellow;
+}
+
+.virtual_ip {
+  color: $bright_blue;
+}
+
+.server {
+  color: $magenta;
+}
+
+.db_instance {
+  color: $bright_yellow;
+}
+
+.db_server {
+  color: $magenta;
+}
+
+.database {
+  color: $yellow;
+}
+
+.dbms {
+  color: $bright_blue;
+}
+
+.db_role {
+  color: $bright_black;
+}
+
+.privilege {
+  color: $bright_magenta;
+}
+
+.parameter {
+  color: $yellow;
+}
+
+.version {
+  color: $yellow;
+}
+
+.url {
+  color: $blue;
+}
+
+.vhost {
+  color: $green;
+}
+
+.partitions {
+  color: $bright_magenta;
 }

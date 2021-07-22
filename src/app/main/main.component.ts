@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
@@ -13,13 +13,14 @@ import { environment } from './../../environments/environment';
 export class MainComponent implements OnInit, OnDestroy {
 
   private sub: Subscription = new Subscription();
-  page: string = 'home';
+  page: string = 'popup';
   value: string = '';
 
   public version: string = environment.version;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
 
@@ -43,6 +44,12 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  openThotify(): void {
+    chrome.windows.create({
+      url: chrome.runtime.getURL('index.html') + '?page=home'
+    });
   }
 
 }

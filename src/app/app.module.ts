@@ -7,17 +7,34 @@ import { AppComponent } from './app.component';
 import { ServerComponent } from './server/server.component';
 import { ThotService } from './thot.service';
 import { MainComponent } from './main/main.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from './header/header.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ApplicationComponent } from './application/application.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ServerComponent,
-    MainComponent
+    MainComponent,
+    HeaderComponent,
+    ApplicationComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatProgressSpinnerModule,
+    FormsModule
   ],
   providers: [
     ThotService

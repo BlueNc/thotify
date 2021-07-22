@@ -27,7 +27,6 @@ export class ServerComponent implements OnInit, OnDestroy {
       },
       error => {
         this.error = error;
-        console.log(error)
         this.pending = false;
       }
     );

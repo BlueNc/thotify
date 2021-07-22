@@ -1,8 +1,37 @@
+<thotify-header *ngIf="page!='popup'"></thotify-header>
 <div [ngSwitch]="page" id="page">
-  <div *ngSwitchCase="'home'">
+  <div *ngSwitchCase="'popup'">
     <img src="./assets/images/thot_48.png"/>
     <h2>Thotify</h2>
     <p>Version: {{version}}</p>
+    <button mat-raised-button color="primary" (click)="openThotify()">Open Thotify</button>
+  </div>
+  <div *ngSwitchCase="'home'">
+    <pre>
+              :sdNMMmho-
+      .`   -odddNMMMMMMMd:
+     :o  .so:` `-hMMMMMMMMo
+    -y`  /` `.sNMMMMMMMMMMM:
+     :     /dMMMMMMMMMMMMMMh
+     :     mMMMMMMMMMMMMMMmd
+     :    `NMNmMMMMMMMsNMM.
+     :    :MMy-MMMMMMh oMM-
+     :    sMM/ dMMMMN. .MM:
+     :   /NN+  sMMMMy  `MM:
+     :  oNd-   hMMMMN.  mM/
+   `-+.yNo`   `NMMMMMs  sM/
+   +NNmh-     :MMMMMMN` /M+
+    :y-`      sMMMMMMM+smMs
+     :        dMMNmMMMhohd/
+     :        NMMs.dMMh:ys-
+     :        dMM+ .mMM++/
+     :        hMM/  -MMN`
+     :        dMN`   sMM:
+     :        mMy    `NM+
+    `/.      .MM.     oMo   .___..      ,
+    : -`    :hMm`    .sMm`    |  |_  _ -+-
+     --  /sdmmmm- /sdNMMM/    |  [ )(_) |
+    </pre>
   </div>
   <thotify-server *ngSwitchCase="'server'" [serverName]="value"></thotify-server>
 </div>

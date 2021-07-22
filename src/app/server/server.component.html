@@ -1,19 +1,19 @@
 <div *ngIf="server">
-  <p style="color: #396FE2;">
+  <p class="server">
     ======================================<br>
     <strong style="margin-left: 10px">{{server.name}}</strong><br>
     ======================================<br>
   </p>
   <p>
-    Environment : <strong style="color: #9ECE58;">{{server.env}}</strong><br>
-    Zone : <strong style="color: #396FE2;">{{server.zone}}</strong><br>
-    Ips : <strong style="color: #9ECE58;">{{server.ip}}</strong><br>
+    Environment : <strong class="environment">{{server.env}}</strong><br>
+    Zone : <strong class="zone">{{server.zone}}</strong><br>
+    Ips : <strong class="ip">{{server.ip}}</strong><br>
     OS : <strong>{{server.os_name}} {{server.os_version}}</strong><br>
     CPU : <strong>{{server.cpu}}</strong>  RAM : <strong>{{server.ram}}</strong> Mo<br>
-    Status : <strong style="color: #C3E88D;">{{server.status}}</strong> since {{server.date_maj_status}}<br>
+    Status : <strong class="active">{{server.status}}</strong> since {{server.date_maj_status}}<br>
   </p>
   <p>
-    <span style="color: #BB80B3;">
+    <span class="partitions">
       === Partitions ===
     </span><br>
     <span *ngFor="let partition of server.partitions" style="margin-left: 10px;">
@@ -21,17 +21,17 @@
     </span>
   </p>
   <p>
-    <span style="color: #C3E88D;">
+    <span class="installation">
       === Installed components ===
     </span><br>
     <span *ngFor="let installation of server.installations" style="margin-left: 10px;">
-      <strong style="color: #2DDAFD;">{{installation.component_name}}</strong> - port: <strong style="color: #C3E88D;">{{installation.ports}}</strong><br>
+      <strong class="component">{{installation.component_name}}</strong> - port: <strong class="installation">{{installation.ports}}</strong><br>
     </span>
   </p>
 </div>
-<div *ngIf="error" style="color: red; background-color: #202025;">
+<div *ngIf="error" class="error">
   {{error.message}}
 </div>
-<div *ngIf="pending" style="color: blue; background-color: #202025;">
-  loading...
+<div *ngIf="pending">
+  <mat-spinner></mat-spinner>
 </div>
