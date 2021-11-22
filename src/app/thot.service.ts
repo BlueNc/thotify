@@ -13,7 +13,15 @@ export class ThotService {
     return this.http.get<Server>(`${this.thotUrl}/server/${serverName}`);
   }
 
+  listServer() {
+    return this.http.get<[Server]>(`${this.thotUrl}/server/`);
+  }
+
   getApplication(applicationName: string) {
     return this.http.get<Application>(`${this.thotUrl}/application/${applicationName}`);
+  }
+
+  listApplication() {
+    return this.http.get<[Application]>(`${this.thotUrl}/application/`);
   }
 }

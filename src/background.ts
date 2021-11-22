@@ -10,7 +10,8 @@ chrome.contextMenus.create({
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
   if (info.menuItemId == "thotify-selection") {
     chrome.windows.create({
-      url: chrome.runtime.getURL('index.html') + '?page=server&value=' +  info.selectionText
+      url: chrome.runtime.getURL('index.html') + '?page=search&value=' +  info.selectionText,
+      type: 'popup'
     });
   }
 });

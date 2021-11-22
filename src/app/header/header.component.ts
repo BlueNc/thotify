@@ -23,11 +23,10 @@ export class HeaderComponent implements OnInit {
   }
 
   searchServer(): void {
-    console.log("searchServer")
     this.router.navigate([], { queryParams: {
-      page: 'server',
+      page: 'search',
       value: this.search
-    } })
+    }})
   }
 
 }

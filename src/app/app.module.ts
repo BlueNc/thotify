@@ -15,6 +15,8 @@ import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ApplicationComponent } from './application/application.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SearchComponent } from './search/search.component';
+import { ThotCacheService } from './thot-cache.service';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ServerComponent,
     MainComponent,
     HeaderComponent,
-    ApplicationComponent
+    ApplicationComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FormsModule
   ],
   providers: [
-    ThotService
+    ThotService,
+    ThotCacheService
   ],
   bootstrap: [AppComponent]
 })
