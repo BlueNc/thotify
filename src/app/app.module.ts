@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,8 +16,10 @@ import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ApplicationComponent } from './application/application.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatListModule } from '@angular/material/list';
 import { SearchComponent } from './search/search.component';
 import { ThotCacheService } from './thot-cache.service';
+import { ComponentComponent } from './component/component.component';
 
 
 @NgModule({
@@ -26,10 +29,12 @@ import { ThotCacheService } from './thot-cache.service';
     MainComponent,
     HeaderComponent,
     ApplicationComponent,
-    SearchComponent
+    SearchComponent,
+    ComponentComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     MatInputModule,
@@ -37,6 +42,7 @@ import { ThotCacheService } from './thot-cache.service';
     MatButtonModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
+    MatListModule,
     FormsModule
   ],
   providers: [

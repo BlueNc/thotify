@@ -1,8 +1,58 @@
 <div *ngIf="application">
-  <h2 class="application">
+  <p class="application">
+    ======================================<br>
     <strong style="margin-left: 10px">{{application.name}}</strong><br>
-  </h2>
-  TODO
+    ======================================<br>
+  </p>
+  <p>
+    {{application.description}}
+  </p>
+  <p>
+    <span class="direction"><u>Direction :</u><strong> {{application.direction}}</strong></span><br>
+    <u>Classification :</u><strong> {{application.classification}}</strong><br>
+    <span><u>Category :</u> <strong> {{application.category}}</strong></span><br>
+    <span><u>Technical Contact :</u> <strong> {{application.technical_contact | json}}</strong></span><br>
+    <span class="component"><u>Components :</u><strong> {{component_names}}</strong></span><br>
+  </p>
+  <p>
+    <span class="installation">
+      === Installations ===
+    </span><br>
+    <span *ngFor="let env of application.installations_by_env_srv" style="margin-left: 10px;">
+      <strong class="environment">{{env.environment_name}}</strong><br>
+      <span *ngFor="let server of env.servers" style="margin-left: 20px;">
+        <span class="server">{{server.name}}</span><br>
+        <span *ngFor="let installation of server.installations" style="margin-left: 30px;">
+          <span class="component">{{installation.component_name}}</span> - port: <span class="installation">{{installation.ports}}</span> - version: <span class="installation">{{installation.last_deployment.version}}</span><span class="faded"> (deployed on {{installation.last_deployment.date_of_deployment | date:'medium'}})</span><br>
+        </span>
+      </span>
+    </span>
+  </p>
+  <p>
+    <span class="db_server">
+      === DB Servers ===
+    </span><br>
+    <span *ngFor="let env of application.db_roles_by_env" style="margin-left: 10px;">
+      <strong class="environment">{{env.environment_name}}</strong><br>
+      <span *ngFor="let db_role of env.db_roles" style="margin-left: 20px;">
+        <span class="db_role">{{db_role.name}}</span> - <span class="db_instance">{{db_role.instance.name}}</span> - <span class="db_server">{{db_role.instance.server_name}}</span><br>
+      </span>
+    </span>
+  </p>
+  <p>
+    <span class="link">
+      === Links ===
+    </span><br>
+    <span *ngFor="let link of application.links" style="margin-left: 10px;">
+      <span class="component">{{link.component_src}}</span><strong class="link"> {{link.type}} </strong><span class="component">{{link.component_dst}}</span> - <span class="faded">{{link.description}}</span><br>
+    </span>
+    <span class="link">
+      ---
+    </span><br>
+    <span *ngFor="let link of application.linked_by" style="margin-left: 10px;">
+      <span class="component">{{link.component_src}}</span><strong class="link"> {{link.type}} </strong><span class="component">{{link.component_dst}}</span> - <span class="faded">{{link.description}}</span><br>
+    </span>
+  </p>
 </div>
 <div *ngIf="error" class="error">
   {{error.message}}

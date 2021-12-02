@@ -25,6 +25,7 @@ body {
   color: $white;
   background-color: #202025;
   margin: 0px;
+  font-family: Roboto;
 }
 
 .ok {
@@ -141,4 +142,8 @@ body {
 
 .partitions {
   color: $bright_magenta;
+}
+
+.link {
+  color: $bright_green;
 }

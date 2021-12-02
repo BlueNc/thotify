@@ -2,26 +2,37 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Server } from './server/server.model';
 import { Application } from './application/application.model';
+import { environment } from './../environments/environment';
+import { ThotComponentDetail } from './component/component.model';
+
 
 @Injectable()
 export class ThotService {
-  thotUrl = 'https://thot.ref.gnc';
+  thotUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
-  getServer(serverName: string) {
-    return this.http.get<Server>(`${this.thotUrl}/server/${serverName}`);
+  getServer(name: string) {
+    return this.http.get<Server>(`${this.thotUrl}/server/${name}`);
   }
 
   listServer() {
     return this.http.get<[Server]>(`${this.thotUrl}/server/`);
   }
 
-  getApplication(applicationName: string) {
-    return this.http.get<Application>(`${this.thotUrl}/application/${applicationName}`);
+  getApplication(name: string) {
+    return this.http.get<Application>(`${this.thotUrl}/application/${name}`);
   }
 
   listApplication() {
     return this.http.get<[Application]>(`${this.thotUrl}/application/`);
+  }
+
+  getComponent(name: string) {
+    return this.http.get<ThotComponentDetail>(`${this.thotUrl}/component/${name}`);  // TODO
+  }
+
+  listComponent() {
+    return this.http.get<[ThotComponentDetail]>(`${this.thotUrl}/component/`); // TODO
   }
 }

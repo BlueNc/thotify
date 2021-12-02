@@ -10,6 +10,9 @@ import { Application } from './application.model';
 export class ApplicationComponent implements OnInit {
 
   application: Application|undefined;
+
+  component_names = ''
+
   error: any;
 
   pending: boolean = false;
@@ -20,6 +23,7 @@ export class ApplicationComponent implements OnInit {
     this.thotService.getApplication(applicationName).subscribe(
       application => {
         this.application = application;
+        this.component_names = application.components.map(c => c.name).join(", ");
         this.pending = false;
       },
       error => {

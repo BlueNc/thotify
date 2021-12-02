@@ -74,5 +74,19 @@ export interface Application {
   installations_by_env_srv: InstallationsByEnvSrv[];
   name: string;
   technical_contact: string[];
+  classification: string;
+  category: string;
+  linked_by: Link[];
+  links: Link[];
+}
+
+export interface Link {
+  component_dst: string;
+  component_dst_type: string;
+  component_src: string;
+  component_src_type: string;
+  description: string;
+  id_link: number;
+  type: string;
 }
 

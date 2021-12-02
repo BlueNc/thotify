@@ -48,8 +48,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   openThotify(): void {
     chrome.windows.create({
-      url: chrome.runtime.getURL('index.html') + '?page=home',
-      type: 'popup'
+      url: chrome.runtime.getURL('index.html') + '?page=home'
     });
   }
 

@@ -9,23 +9,28 @@ import { ThotCacheService, ThotNode } from '../thot-cache.service';
 })
 export class SearchComponent implements OnInit {
 
-  error: any;
-
   pending: boolean = false;
 
   nodes: ThotNode[] = [];
 
+  private _value: string = "";
+
   @Input() set value(value: string) {
+    this.pending = true;
+    this._value = value
     this.thotCacheService.find(value).subscribe(
       nodes => {
-        this.nodes = nodes
-        console.log(nodes)
+        this.nodes = nodes;
+        this.pending = false;
         if (this.nodes.length === 1) {
-          this.goToNodePage(this.nodes[0])
+          this.goToNodePage(this.nodes[0]);
         }
       }
     )
+  }
 
+  get value() {
+    return this._value;
   }
 
   constructor(

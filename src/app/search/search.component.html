@@ -1,1 +1,17 @@
-<p>search works!</p>
+<div *ngIf="nodes.length > 0">
+  <mat-selection-list [multiple]="false">
+    <div mat-subheader>{{nodes.length}} éléments trouvés</div>
+    <mat-list-option *ngFor="let node of nodes" (click)="goToNodePage(node)">
+      <mat-icon mat-list-icon>{{node.icon}}</mat-icon>
+      <div mat-line>{{node.name}}</div>
+      <div mat-line> {{node.type}} </div>
+    </mat-list-option>
+  </mat-selection-list>
+</div>
+<div *ngIf="nodes.length === 0" class="error">
+  Aucun élément correspondant à {{value}}
+</div>
+<div *ngIf="pending">
+  <mat-spinner></mat-spinner>
+</div>
+
