@@ -9,11 +9,18 @@
   </p>
   <p>
     <span>Type : {{component.type}}</span><br>
-    <span>Application :</span><strong class="application"> {{component.application_name}}</strong><br>
-    <span>
-      <span style="margin-left: 10px">Description : {{component.application.description}}</span><br>
-      <span style="margin-left: 10px" class="direction">Direction :<strong> {{component.application.direction}}</strong></span><br>
-      <span style="margin-left: 10px" class="component">Components : <strong>{{component_names}}</strong></span><br>
+    <span *ngIf="component.application">
+      <span>Application :</span><strong class="application"><a thotifyLink="application"> {{component.application_name}}</a></strong><br>
+      <span>
+        <span style="margin-left: 10px">Description : {{component.application?.description}}</span><br>
+        <span style="margin-left: 10px" class="direction">Direction :<strong> {{component.application?.direction}}</strong></span><br>
+        <span style="margin-left: 10px" class="component">Components :
+          <span *ngFor="let component of component_names; let last = last">
+            <strong thotifyLink="component">{{component}}</strong>
+            <span *ngIf="!last">, </span>
+          </span>
+        </span><br>
+      </span>
     </span>
   </p>
   <p>
@@ -23,7 +30,13 @@
     <span *ngFor="let env of component.installations_by_env" style="margin-left: 10px;">
       <strong class="environment">{{env.environment_name}}</strong><br>
       <span *ngFor="let installation of env.installations" style="margin-left: 20px;">
-        <span class="server">{{installation.server_name}}</span> - port: <span class="installation">{{installation.ports}}</span> - version: <span class="installation">{{installation.last_deployment.version}}</span><span class="faded"> (deployed on {{installation.last_deployment.date_of_deployment | date:'medium'}})</span><br>
+        <span thotifyLink="server" class="server">{{installation.server_name}}</span>
+        <span *ngIf="installation.ports"> - port: <span class="installation">{{installation.ports}}</span></span>
+        <span *ngIf="installation.last_deployment">
+          - version: <span class="installation">{{installation.last_deployment?.version}}</span>
+          <span class="faded"> (deployed on {{installation.last_deployment?.date_of_deployment | date:'medium'}})</span>
+        </span>
+        <br>
       </span>
     </span>
   </p>
@@ -34,7 +47,7 @@
     <span *ngFor="let env of component.db_roles_by_env" style="margin-left: 10px;">
       <strong class="environment">{{env.environment_name}}</strong><br>
       <span *ngFor="let db_role of env.db_roles" style="margin-left: 20px;">
-        <span class="db_role">{{db_role.name}}</span> - <span class="db_instance">{{db_role.instance_name}}</span> - <span class="db_server">{{db_role.server_name}}</span><br>
+        <span class="db_role">{{db_role.name}}</span> - <span class="db_instance">{{db_role.instance_name}}</span> - <a thotifyLink="server" class="db_server">{{db_role.server_name}}</a><br>
       </span>
     </span>
   </p>
@@ -45,7 +58,7 @@
     <span *ngFor="let link_type of component.links_by_type | keyvalue" style="margin-left: 10px;">
       <strong class="link">{{link_type.key}}</strong><br>
       <span *ngFor="let link of link_type.value" style="margin-left: 20px;">
-        <span class="component">{{link.component_src}}</span> - <span class="faded">{{link.description}}</span><br>
+        <span class="component" thotifyLink="component">{{link.component_dst}}</span> - <span class="faded">{{link.description}}</span><br>
       </span>
     </span>
     <span class="link">
@@ -54,26 +67,10 @@
     <span *ngFor="let link_type of component.linked_by_type | keyvalue" style="margin-left: 10px;">
       <strong class="link">{{link_type.key}} by</strong><br>
       <span *ngFor="let link of link_type.value" style="margin-left: 20px;">
-        <span class="component">{{link.component_src}}</span> - <span class="faded">{{link.description}}</span><br>
+        <a thotifyLink="component" class="component">{{link.component_src}}</a> - <span class="faded">{{link.description}}</span><br>
       </span>
     </span>
   </p>
-  <!--
-
-  <p>
-    <span class="link">
-      === Links ===
-    </span><br>
-    <span *ngFor="let link of application.links" style="margin-left: 10px;">
-      <span class="component">{{link.component_src}}</span><strong class="link"> {{link.type}} </strong><span class="component">{{link.component_dst}}</span> - <span class="faded">{{link.description}}</span><br>
-    </span>
-    <span class="link">
-      ---
-    </span><br>
-    <span *ngFor="let link of application.linked_by" style="margin-left: 10px;">
-      <span class="component">{{link.component_src}}</span><strong class="link"> {{link.type}} </strong><span class="component">{{link.component_dst}}</span> - <span class="faded">{{link.description}}</span><br>
-    </span>
-  </p> -->
 </div>
 <div *ngIf="error" class="error">
   {{error.message}}

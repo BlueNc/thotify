@@ -1,4 +1,7 @@
 <thotify-header *ngIf="page!='popup'"></thotify-header>
+<button *ngIf="page!='popup'" mat-icon-button color="warn" aria-label="Back" class="btn-back" (click)="back()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
 <div [ngSwitch]="page" id="page">
   <div *ngSwitchCase="'popup'">
     <img src="./assets/images/thot_48.png"/>

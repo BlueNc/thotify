@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
@@ -20,7 +21,8 @@ export class MainComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) { }
 
 
@@ -50,6 +52,10 @@ export class MainComponent implements OnInit, OnDestroy {
     chrome.windows.create({
       url: chrome.runtime.getURL('index.html') + '?page=home'
     });
+  }
+
+  back(): void {
+    this.location.back();
   }
 
 }

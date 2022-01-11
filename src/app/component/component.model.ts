@@ -77,7 +77,7 @@ export interface LinkByType {
 }
 
 export interface ThotComponentDetail {
-    application: Application;
+    application?: Application;
     application_name: string;
     db_roles: DbRole[];
     db_roles_by_env: DbRolesByEnv[];

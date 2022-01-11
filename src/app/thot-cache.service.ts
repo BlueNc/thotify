@@ -9,6 +9,14 @@ export type ThotNode = {
   icon: string
 }
 
+export type ThotNodeStats = {
+  [type: string]: {
+    length: number,
+    type: string,
+    icon: string
+  }
+}
+
 @Injectable()
 export class ThotCacheService {
 
@@ -95,4 +103,18 @@ export class ThotCacheService {
     }
     return this.cached_nodes.asObservable();
   }
+
+  get stats(): Observable<ThotNodeStats> {
+    if (!this.last_update) {
+      this.refreshCache();
+    }
+    return this.cached_nodes.pipe(
+      map(nodes => nodes.reduce((stats, node) => {
+        stats[node.type] = stats[node.type] || {icon: node.icon, length: 0}
+        stats[node.type].length = stats[node.type].length + 1
+        return stats
+      }, {} as ThotNodeStats))
+    );
+  }
 }
+

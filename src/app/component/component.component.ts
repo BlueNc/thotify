@@ -10,7 +10,7 @@ import { ThotComponentDetail } from './component.model';
 export class ComponentComponent implements OnInit {
 
   component: ThotComponentDetail|undefined;
-  component_names = '';
+  component_names: string[] = [];
 
   error: any;
 
@@ -22,7 +22,11 @@ export class ComponentComponent implements OnInit {
     this.thotService.getComponent(name).subscribe(
       component => {
         this.component = component;
-        this.component_names = component.application.components.map(c => c.name).join(", ");
+        if (component.application) {
+          this.component_names = component.application.components.map(c => c.name);
+        } else {
+          this.component_names = []
+        }
         this.pending = false;
       },
       error => {

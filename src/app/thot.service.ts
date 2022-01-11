@@ -29,10 +29,11 @@ export class ThotService {
   }
 
   getComponent(name: string) {
-    return this.http.get<ThotComponentDetail>(`${this.thotUrl}/component/${name}`);  // TODO
+    name = name.replace(/\//gi, '::');
+    return this.http.get<ThotComponentDetail>(`${this.thotUrl}/component/${name}`);
   }
 
   listComponent() {
-    return this.http.get<[ThotComponentDetail]>(`${this.thotUrl}/component/`); // TODO
+    return this.http.get<[ThotComponentDetail]>(`${this.thotUrl}/component/`);
   }
 }

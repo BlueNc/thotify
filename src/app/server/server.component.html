@@ -8,6 +8,7 @@
     Environment : <strong class="environment">{{server.env}}</strong><br>
     Zone : <strong class="zone">{{server.zone}}</strong><br>
     Ips : <strong class="ip">{{server.ip}}</strong><br>
+    Virtual Ips : <strong class="virtual_ip">{{server.virtual_ips}}</strong><br>
     OS : <strong>{{server.os_name}} {{server.os_version}}</strong><br>
     CPU : <strong>{{server.cpu}}</strong>  RAM : <strong>{{server.ram}}</strong> Mo<br>
     Status : <strong class="active">{{server.status}}</strong> since {{server.date_maj_status}}<br>
@@ -25,7 +26,16 @@
       === Installed components ===
     </span><br>
     <span *ngFor="let installation of server.installations" style="margin-left: 10px;">
-      <strong class="component">{{installation.component_name}}</strong> - port: <strong class="installation">{{installation.ports}}</strong><br>
+      <strong class="component">
+        <a thotifyLink="component">{{installation.component_name}}</a>
+      </strong>
+      <span *ngIf="installation.ports">
+         - port: <span class="installation">{{installation.ports}}</span>
+      </span>
+      <span *ngIf="installation.last_deployment">
+         - version: <span class="installation">{{installation.last_deployment?.version}}</span>
+        <span class="faded"> (deployed on {{installation.last_deployment?.date_of_deployment | date:'medium'}})</span>
+      </span><br>
     </span>
   </p>
 </div>

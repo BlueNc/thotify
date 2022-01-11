@@ -1,0 +1,17 @@
+<h2>Cache</h2>
+<div *ngIf="stats">
+  <mat-list>
+    <mat-list-item *ngFor="let item of stats| keyvalue">
+      <mat-icon mat-list-icon>{{item.value.icon}}</mat-icon>
+      <div mat-line>{{item.key}}</div>
+      <div mat-line> {{item.value.length}} </div>
+    </mat-list-item>
+  </mat-list>
+  <button mat-icon-button aria-label="Refresh" (click)="refreshCache()">
+    <mat-icon>cached</mat-icon>
+  </button>
+</div>
+<div *ngIf="pending">
+  <mat-spinner></mat-spinner>
+</div>
+

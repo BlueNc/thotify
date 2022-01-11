@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { CacheDialogComponent } from '../cache-dialog/cache-dialog.component';
 
 @Component({
   selector: 'thotify-header',
@@ -12,7 +14,8 @@ export class HeaderComponent implements OnInit {
   searchMode: boolean = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -22,11 +25,14 @@ export class HeaderComponent implements OnInit {
     this.searchMode = true
   }
 
-  searchServer(): void {
+  submitSearch(): void {
     this.router.navigate([], { queryParams: {
       page: 'search',
       value: this.search
     }})
   }
 
+  showCache() {
+    this.dialog.open(CacheDialogComponent, {restoreFocus: false});
+  }
 }

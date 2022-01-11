@@ -5,13 +5,16 @@
   <button *ngIf="!searchMode" mat-icon-button aria-label="Search" (click)="enterSearchMode()">
     <mat-icon>search</mat-icon>
   </button>
-  <form class="searchForm" *ngIf="searchMode" (ngSubmit)="searchServer()">
+  <form class="searchForm" *ngIf="searchMode" (ngSubmit)="submitSearch()">
     <mat-form-field class="field" floatLabel="never">
-      <mat-label>Server</mat-label>
+      <mat-label>Search</mat-label>
       <input matInput type="text" [(ngModel)]="search" name="search" autofocus>
       <button matSuffix mat-icon-button aria-label="Clear" type="button" (click)="searchMode=false">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
   </form>
+  <button *ngIf="!searchMode" mat-icon-button aria-label="Cache" (click)="showCache()">
+    <mat-icon>source</mat-icon>
+  </button>
 </mat-toolbar>

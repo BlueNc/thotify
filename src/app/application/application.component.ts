@@ -11,7 +11,7 @@ export class ApplicationComponent implements OnInit {
 
   application: Application|undefined;
 
-  component_names = ''
+  component_names: string[] = []
 
   error: any;
 
@@ -23,7 +23,7 @@ export class ApplicationComponent implements OnInit {
     this.thotService.getApplication(applicationName).subscribe(
       application => {
         this.application = application;
-        this.component_names = application.components.map(c => c.name).join(", ");
+        this.component_names = application.components.map(c => c.name);
         this.pending = false;
       },
       error => {

@@ -17,9 +17,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ApplicationComponent } from './application/application.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
 import { SearchComponent } from './search/search.component';
 import { ThotCacheService } from './thot-cache.service';
 import { ComponentComponent } from './component/component.component';
+import { LinkDirective } from './link.directive';
+import { CacheDialogComponent } from './cache-dialog/cache-dialog.component';
 
 
 @NgModule({
@@ -30,7 +33,9 @@ import { ComponentComponent } from './component/component.component';
     HeaderComponent,
     ApplicationComponent,
     SearchComponent,
-    ComponentComponent
+    ComponentComponent,
+    LinkDirective,
+    CacheDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +48,7 @@ import { ComponentComponent } from './component/component.component';
     MatToolbarModule,
     MatProgressSpinnerModule,
     MatListModule,
+    MatDialogModule,
     FormsModule
   ],
   providers: [
