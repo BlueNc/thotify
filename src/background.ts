@@ -8,9 +8,16 @@ chrome.contextMenus.create({
 
 
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
-  if (info.menuItemId == "thotify-selection") {
-    chrome.windows.create({
-      url: chrome.runtime.getURL('index.html') + '?page=search&value=' +  info.selectionText
+  if (info.menuItemId == "thotify-selection" && info.selectionText) {
+    chrome.tabs.create({
+      url: chrome.runtime.getURL('index.html') + '?page=search&value=' +  encodeURIComponent(info.selectionText)
     });
   }
+});
+
+
+chrome.omnibox.onInputEntered.addListener((text) => {
+  chrome.tabs.create({
+    url: chrome.runtime.getURL('index.html') + '?page=search&value=' +  encodeURIComponent(text)
+  });
 });

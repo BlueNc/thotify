@@ -28,7 +28,13 @@
       <span *ngFor="let server of env.servers" style="margin-left: 20px;">
         <span thotifyLink="server" class="server">{{server.name}}</span><br>
         <span *ngFor="let installation of server.installations" style="margin-left: 30px;">
-          <span thotifyLink="component" class="component">{{installation.component_name}}</span> - port: <span class="installation">{{installation.ports}}</span> - version: <span class="installation">{{installation.last_deployment.version}}</span><span class="faded"> (deployed on {{installation.last_deployment.date_of_deployment | date:'medium'}})</span><br>
+          <span thotifyLink="component" class="component">{{installation.component_name}}</span>
+          <span *ngIf="installation.ports"> - port: <span class="installation">{{installation.ports}}</span></span>
+          <span *ngIf="installation.last_deployment">
+            - version: <span class="installation">{{installation.last_deployment?.version}}</span>
+            <span class="faded"> (deployed on {{installation.last_deployment?.date_of_deployment | date:'medium'}})</span>
+          </span>
+          <br>
         </span>
       </span>
     </span>

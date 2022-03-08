@@ -1,12 +1,13 @@
 <h2>Cache</h2>
 <div *ngIf="stats">
   <mat-list>
-    <mat-list-item *ngFor="let item of stats| keyvalue">
+    <mat-list-item *ngFor="let item of stats| keyvalue" [class]="item.value.class">
       <mat-icon mat-list-icon>{{item.value.icon}}</mat-icon>
       <div mat-line>{{item.key}}</div>
       <div mat-line> {{item.value.length}} </div>
     </mat-list-item>
   </mat-list>
+  <span>Last update : {{lastUpdate | date:'medium'}} </span>
   <button mat-icon-button aria-label="Refresh" (click)="refreshCache()">
     <mat-icon>cached</mat-icon>
   </button>

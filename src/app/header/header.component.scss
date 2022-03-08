@@ -2,13 +2,13 @@
   flex: 1 1 auto;
 }
 
-.searchForm, .searchForm .field {
-  width: 100%;
-}
-
 .logo {
   margin-right: 12px;
   vertical-align: sub;
+}
+
+a {
+  cursor: pointer;
 }
 
 ::ng-deep input:-webkit-autofill,
@@ -17,4 +17,23 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
     -webkit-text-fill-color: white;
+}
+
+.searchForm {
+  input {
+    background: #191a1b;
+    border: none;
+    color: #f2f2f2;
+    border-radius: 100px;
+    outline: none;
+    width: 260px;
+    transition: width .4s ease-in-out;
+    line-height: normal;
+    font-size: 16px;
+    padding: 5px 16px 5px 16px;
+
+    &:focus {
+      width: 350px;
+    }
+  }
 }

@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ThotService } from './thot.service';
 import { map, mergeMap, tap } from 'rxjs/operators';
-import { BehaviorSubject, from, Observable, scheduled, Subject } from 'rxjs';
+import { BehaviorSubject, from, Observable } from 'rxjs';
 
 export type ThotNode = {
   name: string,
   type: string,
-  icon: string
+  icon: string,
+  page: string,
+  value: string,
+  description: string,
+  class: string
 }
+
 
 export type ThotNodeStats = {
   [type: string]: {
     length: number,
-    type: string,
-    icon: string
+    icon: string,
+    class: string
   }
 }
 
@@ -22,95 +27,122 @@ export class ThotCacheService {
 
   private cached_nodes = new BehaviorSubject<ThotNode[]>([]);
 
-  private last_update: Date | undefined = undefined;
+  public lastUpdate: Date | undefined = undefined;
 
   constructor(private thotService: ThotService) { }
 
   refreshCache(): void {
-    let types = [
-      {
-        name: 'application',
-        values: this.listApplicationName(),
-        icon: 'apps'
-      },
-      {
-        name: 'server',
-        values: this.listServerName(),
-        icon: 'storage'
-      },
-      {
-        name: 'component',
-        values: this.listComponentName(),
-        icon: 'settings_applications'
-      }
+    let node_types = [
+      this.listApplicationName(),
+      this.listServers(),
+      this.listComponentName(),
     ]
 
     let nodes: ThotNode[] = []
 
-    from(types).pipe(
-      tap(type => console.log(`loading ${type.name}...`)),
-      mergeMap(type => type.values.pipe(map(values => ({type, values})))),
+    from(node_types).pipe(
+      mergeMap(node_type => node_type),
     ).subscribe(
-      data => {
-        console.log(`loading ${data.type.name} complete`, data.values.length);
-        nodes = nodes.concat(this.create_nodes(data.type.name, data.type.icon, data.values));
+      values => {
+        nodes = nodes.concat(values);
       },
       err => console.error(err),
       () => {
         console.log('loading cache complete');
         this.cached_nodes.next(nodes);
-        this.last_update = new Date();
+        this.lastUpdate = new Date();
       }
     )
   }
 
-  private create_nodes(type: string, icon: string, values: string[]): ThotNode[] {
-    return values.map<ThotNode>(
-      name => ({name: name, type: type, icon: icon})
-    )
-  }
-
-  private listApplicationName(): Observable<string[]> {
+  private listApplicationName(): Observable<ThotNode[]> {
     return this.thotService.listApplication().pipe(
-      map(apps => apps.map(a => a.name))
+      tap(type => console.log(`loading applications...`)),
+      map(apps => apps.map(a => ({
+        name: a.name,
+        value: a.name,
+        type: 'application',
+        page: 'application',
+        icon: 'apps',
+        description: 'application',
+        class: 'application'
+      }))),
     )
   }
 
-  private listServerName(): Observable<string[]>  {
+  private listServers(): Observable<ThotNode[]>  {
     return this.thotService.listServer().pipe(
-      map(servers => servers.map(s => s.name))
+      map(servers => {
+        let serverNames = servers.map(s => ({
+          name: s.name,
+          value: s.name,
+          type: 'server',
+          icon: 'storage',
+          page: 'server',
+          description: 'server',
+          class: 'server'
+        }));
+        let ipAddress = servers.reduce((ips, server) => {
+          let currIps = server.ip.map(ip => ({
+            name: ip,
+            value: server.name,
+            type: 'IP address',
+            icon: 'alternate_email',
+            page: 'server',
+            description: server.name,
+            class: 'ip'
+          }));
+          return ips.concat(currIps);
+        }, [] as ThotNode[]);
+
+        return [...serverNames, ...ipAddress]
+      })
     )
   }
 
-  private listComponentName(): Observable<string[]>  {
+  private listComponentName(): Observable<ThotNode[]>  {
     return this.thotService.listComponent().pipe(
-      map(components => components.map(s => s.name))
+      tap(type => console.log(`loading components...`)),
+      map(components => components.map(c => ({
+        name: c.name,
+        value: c.name,
+        type: 'component',
+        icon: 'settings_applications',
+        page: 'component',
+        description: 'component',
+        class: 'component'
+      })))
     )
   }
 
   find(name: string): Observable<ThotNode[]> {
     return this.nodes.pipe(
       map(nodes => {
-        console.log(`search in cache '${name}'`)
-        return nodes.filter(n => n.name.includes(name))
+        console.log(`search in cache '${name}'`);
+        return nodes.filter(node => this.smartMatch(node, name))
       })
     )
   }
 
+  smartMatch(node: ThotNode, value: string): boolean {
+    const terms = value.trim().toLowerCase().split(' ');
+    return terms.every(term => node.name.toLowerCase().includes(term))
+  }
+
   get nodes(): Observable<ThotNode[]> {
-    if (!this.last_update) {
+    if (!this.lastUpdate) {
       this.refreshCache();
     }
     return this.cached_nodes.asObservable();
   }
 
   get stats(): Observable<ThotNodeStats> {
-    if (!this.last_update) {
+    if (!this.lastUpdate) {
       this.refreshCache();
     }
     return this.cached_nodes.pipe(
       map(nodes => nodes.reduce((stats, node) => {
-        stats[node.type] = stats[node.type] || {icon: node.icon, length: 0}
+        stats[node.type] = stats[node.type] || {icon: node.icon, class: node.class, length: 0}
         stats[node.type].length = stats[node.type].length + 1
         return stats
       }, {} as ThotNodeStats))

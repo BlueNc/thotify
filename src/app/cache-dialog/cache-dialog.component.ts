@@ -28,4 +28,8 @@ export class CacheDialogComponent implements OnInit {
     this.cacheService.refreshCache();
   }
 
+  get lastUpdate(): Date | undefined {
+    return this.cacheService.lastUpdate;
+  }
+
 }

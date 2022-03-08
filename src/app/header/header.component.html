@@ -1,20 +1,16 @@
 <mat-toolbar color="primary">
-  <img *ngIf="!searchMode" class="logo" src="./assets/images/thot_32.png"/>
-  <span *ngIf="!searchMode">Thotify</span>
-  <span *ngIf="!searchMode" class="spacer"></span>
-  <button *ngIf="!searchMode" mat-icon-button aria-label="Search" (click)="enterSearchMode()">
-    <mat-icon>search</mat-icon>
-  </button>
-  <form class="searchForm" *ngIf="searchMode" (ngSubmit)="submitSearch()">
-    <mat-form-field class="field" floatLabel="never">
-      <mat-label>Search</mat-label>
-      <input matInput type="text" [(ngModel)]="search" name="search" autofocus>
-      <button matSuffix mat-icon-button aria-label="Clear" type="button" (click)="searchMode=false">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
-  </form>
-  <button *ngIf="!searchMode" mat-icon-button aria-label="Cache" (click)="showCache()">
+  <a (click)="goHome()">
+    <img class="logo" src="./assets/images/thot_32.png"/>
+    <span>Thotify</span>
+  </a>
+  <span class="spacer"></span>
+
+  <div>
+    <form class="searchForm">
+      <input #searchBox aria-label="search" placeholder="Search" type="search" [formControl]="searchControl" name="search" autocomplete="off">
+    </form>
+  </div>
+  <button mat-icon-button aria-label="Cache" (click)="showCache()">
     <mat-icon>source</mat-icon>
   </button>
 </mat-toolbar>

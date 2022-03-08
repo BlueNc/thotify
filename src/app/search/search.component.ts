@@ -16,17 +16,19 @@ export class SearchComponent implements OnInit {
   private _value: string = "";
 
   @Input() set value(value: string) {
-    this.pending = true;
     this._value = value
-    this.thotCacheService.find(value).subscribe(
-      nodes => {
-        this.nodes = nodes;
-        this.pending = false;
-        if (this.nodes.length === 1) {
-          this.goToNodePage(this.nodes[0]);
+    if (this._value) {
+      this.pending = true;
+      this.thotCacheService.find(value).subscribe(
+        nodes => {
+          this.nodes = nodes;
+          this.pending = false;
+          if (this.nodes.length === 1) {
+            this.goToNodePage(this.nodes[0]);
+          }
         }
-      }
-    )
+      )
+    }
   }
 
   get value() {
@@ -44,8 +46,8 @@ export class SearchComponent implements OnInit {
 
   goToNodePage(node: ThotNode) {
     this.router.navigate([], { queryParams: {
-      page: node.type,
-      value: node.name
+      page: node.page,
+      value: node.value
     }})
   }
 

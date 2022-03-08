@@ -11,7 +11,7 @@ import { MainComponent } from './main/main.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ApplicationComponent } from './application/application.component';
@@ -49,7 +49,8 @@ import { CacheDialogComponent } from './cache-dialog/cache-dialog.component';
     MatProgressSpinnerModule,
     MatListModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     ThotService,

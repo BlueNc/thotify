@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -16,12 +16,12 @@ export class MainComponent implements OnInit, OnDestroy {
   private sub: Subscription = new Subscription();
   page: string = 'popup';
   value: string = '';
+  searchValue: string = '';
 
   public version: string = environment.version;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private location: Location
   ) { }
 
@@ -42,6 +42,14 @@ export class MainComponent implements OnInit, OnDestroy {
       ).subscribe(
         value => this.value = value as string
       ));
+
+    this.sub.add(
+      this.route.queryParams.pipe(
+        filter(params => params["page"] === 'search'),
+        map(params => params["value"]),
+      ).subscribe(
+        value => this.searchValue = value as string
+      ));
   }
 
   ngOnDestroy(): void {
@@ -57,5 +65,4 @@ export class MainComponent implements OnInit, OnDestroy {
   back(): void {
     this.location.back();
   }
-
 }
