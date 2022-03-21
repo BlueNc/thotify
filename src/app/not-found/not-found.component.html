@@ -1,0 +1,20 @@
+<!-- inspired from https://codepen.io/caironm/pen/NxJBvZ -->
+<div class="container">
+  <div class="wrap">
+    <li>
+      <span class="error"> ERROR: 404 (Page Not Found)</span>
+    </li>
+    <li>
+      <span class="comment"> # type -h for help</span>
+    </li>
+    <li *ngFor="let line of lines">
+      <span [class]="line.class">
+        <pre>{{line.value}}</pre>
+      </span>
+    </li>
+    <li>
+      <span>{{command}}</span>
+      <span class="prompt"></span>
+    </li>
+  </div>
+</div>

@@ -1,5 +1,7 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { throttleTime } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { ThotService } from '../thot.service';
 
 import { Server } from './server.model';
@@ -12,35 +14,38 @@ import { Server } from './server.model';
 })
 export class ServerComponent implements OnInit, OnDestroy {
 
+  private sub: Subscription = new Subscription();
   server: Server|undefined;
   error: any;
 
   pending: boolean = false;
 
-  @Input() set serverName(serverName: string) {
-    this.pending = true;
-    this.error = undefined;
-    this.thotService.getServer(serverName).subscribe(
-      server => {
-        this.server = server;
-        this.pending = false;
-      },
-      error => {
-        this.error = error;
-        this.pending = false;
-      }
-    );
-  }
-
   constructor(
     private thotService: ThotService,
+    private route: ActivatedRoute
+
   ) { }
 
-
   ngOnInit(): void {
+    this.sub.add(
+      this.route.paramMap.pipe(
+        map(params => params.get("serverName") || ""),
+        tap(_ => this.pending = true),
+        tap(_ => this.error = undefined),
+        switchMap(serverName => this.thotService.getServer(serverName))
+      ).subscribe(
+        server => {
+          this.server = server;
+          this.pending = false;
+        },
+        error => {
+          this.error = error;
+          this.pending = false;
+        }
+      ));
   }
 
   ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
-
 }

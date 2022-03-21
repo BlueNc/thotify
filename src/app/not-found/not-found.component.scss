@@ -1,0 +1,70 @@
+.container {
+  padding: 50px;
+  font-family: courier;
+}
+
+li {
+  font-size: 2em;
+}
+
+li:before {
+  content: "> ";
+}
+
+.comment {
+  color: lightgreen;
+}
+
+.warn {
+  color: orange;
+}
+
+.help {
+  color: skyblue;
+}
+
+.error {
+  color: tomato;
+}
+
+.wrap {
+  margin: 3em auto 0;
+  text-align: left;
+  display: inline-block;
+
+  pre {
+    display: inline-block;
+    margin: 0;
+    font-family: courier;
+  }
+}
+
+li {
+  list-style: none;
+  span {
+    display: inline-block;
+  }
+}
+
+.prompt {
+  position: absolute;
+  background: grey;
+  height: 1em;
+  width: 0.75em;
+  animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    background: grey;
+  }
+  49% {
+    background: grey;
+  }
+  50% {
+    background: transparent;
+  }
+  100% {
+    background: transparent;
+  }
+}

@@ -13,7 +13,6 @@ import { CacheDialogComponent } from '../cache-dialog/cache-dialog.component';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  search: string = '';
   searchControl = new FormControl();
   searchMode: boolean = false;
 
@@ -21,7 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
   @Input() set searchValue(value: string) {
-    this.search = value;
+    this.searchControl.setValue(value, { emitEvent: false });
   }
 
 
@@ -32,18 +31,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.searchControl.valueChanges.pipe(
-      debounceTime(400)
-    ).subscribe(value => this.submitSearch(value as string));
+      debounceTime(600)
+    ).subscribe(_ => this.submitSearch());
   }
 
   enterSearchMode() {
     this.searchMode = true
   }
 
-  submitSearch(value: string): void {
-    this.router.navigate([], { queryParams: {
-      page: 'search',
-      value: value
+  submitSearch(): void {
+    this.router.navigate(['search'], { queryParams: {
+      value: this.searchControl.value
     }})
   }
 

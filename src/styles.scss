@@ -30,6 +30,27 @@ body {
   font-size: 14px;
 }
 
+a[routerlink] {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.error {
+  padding: 16px;
+  color: #f44336;
+  font-weight: 500;
+}
+
+.info {
+  padding: 16px;
+  color: rgba(255,255,255,.7);
+  font-weight: 500;
+}
+
+.color-accent {
+  color: #607d8b;
+}
+
 .ok {
   color: $green;
 }
@@ -153,4 +174,14 @@ body {
 .thotify-link {
   text-decoration: underline;
   cursor: pointer;
+}
+
+mat-spinner {
+  margin: 20px;
+}
+
+mat-progress-bar.global {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
 }

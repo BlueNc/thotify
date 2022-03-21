@@ -10,7 +10,7 @@ chrome.contextMenus.create({
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
   if (info.menuItemId == "thotify-selection" && info.selectionText) {
     chrome.tabs.create({
-      url: chrome.runtime.getURL('index.html') + '?page=search&value=' +  encodeURIComponent(info.selectionText)
+      url: chrome.runtime.getURL('index.html') + '#/search?value=' +  encodeURIComponent(info.selectionText)
     });
   }
 });
@@ -18,6 +18,6 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
 
 chrome.omnibox.onInputEntered.addListener((text) => {
   chrome.tabs.create({
-    url: chrome.runtime.getURL('index.html') + '?page=search&value=' +  encodeURIComponent(text)
+    url: chrome.runtime.getURL('index.html') + '#/search?value=' +  encodeURIComponent(text)
   });
 });

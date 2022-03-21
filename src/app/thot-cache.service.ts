@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ThotService } from './thot.service';
-import { map, mergeMap, tap } from 'rxjs/operators';
+import { filter, map, mergeMap, tap } from 'rxjs/operators';
 import { BehaviorSubject, from, Observable } from 'rxjs';
 
 export type ThotNode = {
@@ -8,7 +8,7 @@ export type ThotNode = {
   type: string,
   icon: string,
   page: string,
-  value: string,
+  routePath: any[],
   description: string,
   class: string
 }
@@ -24,6 +24,8 @@ export type ThotNodeStats = {
 
 @Injectable()
 export class ThotCacheService {
+
+  private loaded = false;
 
   private cached_nodes = new BehaviorSubject<ThotNode[]>([]);
 
@@ -41,7 +43,7 @@ export class ThotCacheService {
     let nodes: ThotNode[] = []
 
     from(node_types).pipe(
-      mergeMap(node_type => node_type),
+      mergeMap(node_type => node_type)
     ).subscribe(
       values => {
         nodes = nodes.concat(values);
@@ -49,6 +51,7 @@ export class ThotCacheService {
       err => console.error(err),
       () => {
         console.log('loading cache complete');
+        this.loaded = true;
         this.cached_nodes.next(nodes);
         this.lastUpdate = new Date();
       }
@@ -60,7 +63,7 @@ export class ThotCacheService {
       tap(type => console.log(`loading applications...`)),
       map(apps => apps.map(a => ({
         name: a.name,
-        value: a.name,
+        routePath: ['application', a.name],
         type: 'application',
         page: 'application',
         icon: 'apps',
@@ -75,7 +78,7 @@ export class ThotCacheService {
       map(servers => {
         let serverNames = servers.map(s => ({
           name: s.name,
-          value: s.name,
+          routePath: ['server', s.name],
           type: 'server',
           icon: 'storage',
           page: 'server',
@@ -85,7 +88,7 @@ export class ThotCacheService {
         let ipAddress = servers.reduce((ips, server) => {
           let currIps = server.ip.map(ip => ({
             name: ip,
-            value: server.name,
+            routePath: ['server', server.name],
             type: 'IP address',
             icon: 'alternate_email',
             page: 'server',
@@ -105,7 +108,7 @@ export class ThotCacheService {
       tap(type => console.log(`loading components...`)),
       map(components => components.map(c => ({
         name: c.name,
-        value: c.name,
+        routePath: ['component', c.name],
         type: 'component',
         icon: 'settings_applications',
         page: 'component',
@@ -133,7 +136,7 @@ export class ThotCacheService {
     if (!this.lastUpdate) {
       this.refreshCache();
     }
-    return this.cached_nodes.asObservable();
+    return this.cached_nodes.pipe(filter(_ => this.loaded));
   }
 
   get stats(): Observable<ThotNodeStats> {

@@ -1,4 +1,4 @@
-<div *ngIf="value">
+<div *ngIf="!pending && value">
   <div *ngIf="nodes.length > 0">
     <mat-selection-list [multiple]="false">
       <div mat-subheader>{{nodes.length}} éléments trouvés</div>
@@ -9,13 +9,13 @@
       </mat-list-option>
     </mat-selection-list>
   </div>
-  <div *ngIf="nodes.length === 0" class="error">
-    No node matching with {{value}}
-  </div>
-  <div *ngIf="pending">
-    <mat-spinner></mat-spinner>
+  <div mat-subheader *ngIf="nodes.length === 0" class="error">
+    No node matching with <span class="color-accent"> {{value}}</span>
   </div>
 </div>
-<div *ngIf="!value" class="error">
+<div *ngIf="!value" class="info">
   Start typing to search...
+</div>
+<div *ngIf="pending">
+  <mat-spinner></mat-spinner>
 </div>

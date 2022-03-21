@@ -1,22 +1,21 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
 import { ThotService } from '../thot.service';
-import { Application } from './application.model';
+import { Installation } from './installation.model';
+
 
 @Component({
-  selector: 'thotify-application',
-  templateUrl: './application.component.html',
-  styleUrls: ['./application.component.scss']
+  selector: 'thotify-installation',
+  templateUrl: './installation.component.html',
+  styleUrls: ['./installation.component.scss']
 })
-export class ApplicationComponent implements OnInit, OnDestroy {
+export class InstallationComponent implements OnInit, OnDestroy {
 
   private sub: Subscription = new Subscription();
-  application: Application|undefined;
 
-  component_names: string[] = []
-
+  installation: Installation|undefined;
   error: any;
 
   pending: boolean = false;
@@ -30,14 +29,14 @@ export class ApplicationComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.sub.add(
       this.route.paramMap.pipe(
-        map(params => params.get("applicationName") || ""),
+        filter(params => params.has('componentName')),
+        filter(params => params.has('serverName')),
         tap(_ => this.pending = true),
         tap(_ => this.error = undefined),
-        switchMap(applicationName => this.thotService.getApplication(applicationName))
+        switchMap(params => this.thotService.getInstallation(params.get('componentName') as string, params.get('serverName') as string))
       ).subscribe(
-        application => {
-          this.application = application;
-          this.component_names = application.components.map(c => c.name);
+        installation => {
+          this.installation = installation;
           this.pending = false;
         },
         error => {

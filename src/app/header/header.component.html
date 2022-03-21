@@ -1,12 +1,12 @@
 <mat-toolbar color="primary">
-  <a (click)="goHome()">
+  <a routerLink="home">
     <img class="logo" src="./assets/images/thot_32.png"/>
     <span>Thotify</span>
   </a>
   <span class="spacer"></span>
 
   <div>
-    <form class="searchForm">
+    <form class="searchForm" (ngSubmit)="submitSearch()">
       <input #searchBox aria-label="search" placeholder="Search" type="search" [formControl]="searchControl" name="search" autocomplete="off">
     </form>
   </div>

@@ -8,7 +8,7 @@ import packageInfo from '../../package.json';
 export const environment = {
   production: false,
   version: packageInfo.version,
-  apiUrl: 'http://localhost:4200/api'
+  apiUrl: '/api'
 };
 
 /*

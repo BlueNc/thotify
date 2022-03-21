@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,7 @@ import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ApplicationComponent } from './application/application.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SearchComponent } from './search/search.component';
@@ -23,6 +24,14 @@ import { ThotCacheService } from './thot-cache.service';
 import { ComponentComponent } from './component/component.component';
 import { LinkDirective } from './link.directive';
 import { CacheDialogComponent } from './cache-dialog/cache-dialog.component';
+import { InstallationComponent } from './installation/installation.component';
+import { PopupComponent } from './popup/popup.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { HomeComponent } from './home/home.component';
+import { LoaderInterceptor } from './interceptors/loader-interceptor.service';
+import { LoaderComponent } from './loader/loader.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { SkeletonLoaderComponent } from './skeleton-loader/skeleton-loader.component';
 
 
 @NgModule({
@@ -35,7 +44,13 @@ import { CacheDialogComponent } from './cache-dialog/cache-dialog.component';
     SearchComponent,
     ComponentComponent,
     LinkDirective,
-    CacheDialogComponent
+    CacheDialogComponent,
+    InstallationComponent,
+    PopupComponent,
+    NotFoundComponent,
+    HomeComponent,
+    LoaderComponent,
+    SkeletonLoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -47,14 +62,17 @@ import { CacheDialogComponent } from './cache-dialog/cache-dialog.component';
     MatButtonModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
     MatListModule,
     MatDialogModule,
+    NgxSkeletonLoaderModule,
     FormsModule,
     ReactiveFormsModule
   ],
   providers: [
     ThotService,
-    ThotCacheService
+    ThotCacheService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

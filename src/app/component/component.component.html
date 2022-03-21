@@ -30,6 +30,7 @@
     <span *ngFor="let env of component.installations_by_env" style="margin-left: 10px;">
       <strong class="environment">{{env.environment_name}}</strong><br>
       <span *ngFor="let installation of env.installations" style="margin-left: 20px;">
+        <span [thotifyLink]="['component', component.name, 'installation', installation.server_name]">(installation)</span>
         <span thotifyLink="server" class="server">{{installation.server_name}}</span>
         <span *ngIf="installation.ports"> - port: <span class="installation">{{installation.ports}}</span></span>
         <span *ngIf="installation.last_deployment">
@@ -76,5 +77,5 @@
   {{error.message}}
 </div>
 <div *ngIf="pending">
-  <mat-spinner></mat-spinner>
+  <thotify-skeleton-loader></thotify-skeleton-loader>
 </div>

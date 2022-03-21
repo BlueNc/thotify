@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { ThotCacheService, ThotNode } from '../thot-cache.service';
 
 @Component({
@@ -7,19 +9,32 @@ import { ThotCacheService, ThotNode } from '../thot-cache.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
+
+  private sub: Subscription = new Subscription();
 
   pending: boolean = false;
 
   nodes: ThotNode[] = [];
 
-  private _value: string = "";
+  value: string = "";
 
-  @Input() set value(value: string) {
-    this._value = value
-    if (this._value) {
-      this.pending = true;
-      this.thotCacheService.find(value).subscribe(
+  constructor(
+    private thotCacheService: ThotCacheService,
+    private router: Router,
+    private route: ActivatedRoute
+
+  ) { }
+
+  ngOnInit(): void {
+    this.sub.add(
+      this.route.queryParamMap.pipe(
+        map(params => params.get("value") || ""),
+        tap(value => this.value = value),
+        filter(value => Boolean(value)),
+        tap(_ => this.pending = true),
+        switchMap(value => this.thotCacheService.find(value))
+      ).subscribe(
         nodes => {
           this.nodes = nodes;
           this.pending = false;
@@ -27,28 +42,14 @@ export class SearchComponent implements OnInit {
             this.goToNodePage(this.nodes[0]);
           }
         }
-      )
-    }
+      ));
   }
 
-  get value() {
-    return this._value;
-  }
-
-  constructor(
-    private thotCacheService: ThotCacheService,
-    private router: Router
-
-  ) { }
-
-  ngOnInit(): void {
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   goToNodePage(node: ThotNode) {
-    this.router.navigate([], { queryParams: {
-      page: node.page,
-      value: node.value
-    }})
+    this.router.navigate(node.routePath)
   }
-
 }

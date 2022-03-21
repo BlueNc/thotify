@@ -14,11 +14,10 @@ import { environment } from './../../environments/environment';
 export class MainComponent implements OnInit, OnDestroy {
 
   private sub: Subscription = new Subscription();
-  page: string = 'popup';
-  value: string = '';
+
   searchValue: string = '';
 
-  public version: string = environment.version;
+  version: string = environment.version;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,25 +27,9 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub.add(
-      this.route.queryParams.pipe(
-        map(params => params["page"]),
-        filter(Boolean)
-      ).subscribe(
-        page => this.page = page as string
-      ));
-
-    this.sub.add(
-      this.route.queryParams.pipe(
-        map(params => params["value"]),
-        filter(Boolean)
-      ).subscribe(
-        value => this.value = value as string
-      ));
-
-    this.sub.add(
-      this.route.queryParams.pipe(
-        filter(params => params["page"] === 'search'),
-        map(params => params["value"]),
+      this.route.queryParamMap.pipe(
+        filter(params => params.has("value")),
+        map(params => params.get("value")),
       ).subscribe(
         value => this.searchValue = value as string
       ));
@@ -54,12 +37,6 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
-  }
-
-  openThotify(): void {
-    chrome.windows.create({
-      url: chrome.runtime.getURL('index.html') + '?page=home'
-    });
   }
 
   back(): void {

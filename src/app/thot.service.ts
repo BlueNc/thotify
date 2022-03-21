@@ -4,6 +4,9 @@ import { Server } from './server/server.model';
 import { Application } from './application/application.model';
 import { environment } from './../environments/environment';
 import { ThotComponentDetail } from './component/component.model';
+import { Installation } from './installation/installation.model';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 
 @Injectable()
@@ -35,5 +38,10 @@ export class ThotService {
 
   listComponent() {
     return this.http.get<[ThotComponentDetail]>(`${this.thotUrl}/component/`);
+  }
+
+  getInstallation(componentName: string, serverName: string) {
+    //return this.http.get<Installation>(`${this.thotUrl}/component/${componentName}/installation/${serverName}`);
+    return of<Installation>()
   }
 }
