@@ -26,13 +26,33 @@ body {
   color: $white;
   background-color: #202025;
   margin: 0px;
-  font-family: Roboto;
-  font-size: 14px;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 13px;
 }
 
 a[routerlink] {
   color: inherit;
   text-decoration: inherit;
+}
+
+a {
+  color: inherit; /* blue colors for links too */
+}
+
+mat-icon.inline-icon {
+  height: inherit;
+  font-size: 1.2rem;
+  vertical-align: bottom;
+
+  &[fontSet] {
+    font-size: 1rem;
+  }
+}
+
+.indent {
+  margin-left: 2ch;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .error {

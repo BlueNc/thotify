@@ -1,7 +1,10 @@
 <div *ngIf="server">
   <p class="server">
     ======================================<br>
-    <strong style="margin-left: 10px">{{server.name}}</strong><br>
+    <span class="indent">
+      <mat-icon class="inline-icon">storage</mat-icon>
+      <strong>{{server.name}}</strong>
+    </span><br>
     ======================================<br>
   </p>
   <p>
@@ -17,7 +20,7 @@
     <span class="partitions">
       === Partitions ===
     </span><br>
-    <span *ngFor="let partition of server.partitions" style="margin-left: 10px;">
+    <span *ngFor="let partition of server.partitions" class="indent">
       {{partition.name}} - {{partition.mount}} - {{partition.size / 1024 / 1024}}MiB<br>
     </span>
   </p>
@@ -25,7 +28,7 @@
     <span class="installation">
       === Installed components ===
     </span><br>
-    <span *ngFor="let installation of server.installations" style="margin-left: 10px;">
+    <span *ngFor="let installation of server.installations" class="indent">
       <strong class="component">
         <a thotifyLink="component">{{installation.component_name}}</a>
       </strong>

@@ -41,7 +41,7 @@ export class ThotService {
   }
 
   getInstallation(componentName: string, serverName: string) {
-    //return this.http.get<Installation>(`${this.thotUrl}/component/${componentName}/installation/${serverName}`);
-    return of<Installation>()
+    componentName = componentName.replace(/\//gi, '::');
+    return this.http.get<Installation>(`${this.thotUrl}/component/${componentName}/installation/${serverName}`);
   }
 }

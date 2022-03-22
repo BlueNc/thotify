@@ -1,1 +1,50 @@
-<p>installation works!</p>
+<div *ngIf="installation">
+  <p class="installation">
+    =================================================================<br>
+    <span class="indent">
+      <mat-icon class="inline-icon" fontSet="fas" fontIcon="fa-cube"></mat-icon>
+      <strong>{{installation.component.name}} {{installation.server.name}}</strong>
+    </span><br>
+    =================================================================<br>
+  </p>
+  <p>
+    Ports : <strong>{{installation.ports}}</strong><br>
+    Status : <strong class="active">{{installation.status}}</strong> since {{installation.date_maj_status}}<br>
+  </p>
+  <p>
+    Component : <strong class="component" thotifyLink="component">{{installation.component.name}}</strong><br>
+    <span class="indent">
+      Type : <strong>{{installation.component.type}}</strong><br>
+      <span *ngIf="installation.component.application">
+        Application : <strong class="application"><a thotifyLink="application">{{installation.component.application_name}}</a></strong><br>
+        <span class="indent">
+          Direction :<strong class="direction"> {{installation.component.application?.direction}}</strong><br>
+        </span>
+      </span>
+    </span>
+  </p>
+  <p>
+    Server : <strong class="server" thotifyLink="server">{{installation.server.name}}</strong><br>
+    <span class="indent">
+      Environment : <strong class="environment">{{installation.server.env}}</strong><br>
+      Zone : <strong class="zone">{{installation.server.zone}}</strong><br>
+      Ips : <strong class="ip">{{installation.server.ip}}</strong><br>
+      Virtual Ips : <strong class="virtual_ip">{{installation.server.virtual_ips}}</strong><br>
+      OS : <strong>{{installation.server.os_name}} {{installation.server.os_version}}</strong><br>
+      CPU : <strong>{{installation.server.cpu}}</strong>  RAM : <strong>{{installation.server.ram}}</strong> Mo<br>
+      Status : <strong class="active">{{installation.server.status}}</strong> since {{installation.server.date_maj_status}}<br>
+    </span>
+  </p>
+  <p class="url">
+    === Urls ===<br>
+    <span *ngFor="let url of installation.urls">
+      <a [href]="url" target="_blank">{{url}}</a><br>
+    </span>
+  </p>
+</div>
+<div *ngIf="error" class="error">
+  {{error.message}}
+</div>
+<div *ngIf="pending">
+  <thotify-skeleton-loader></thotify-skeleton-loader>
+</div>

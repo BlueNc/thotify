@@ -2,6 +2,7 @@
   <a routerLink="home">
     <img class="logo" src="./assets/images/thot_32.png"/>
     <span>Thotify</span>
+    <span class="header-version">{{version}}</span>
   </a>
   <span class="spacer"></span>
 
@@ -13,4 +14,8 @@
   <button mat-icon-button aria-label="Cache" (click)="showCache()">
     <mat-icon>source</mat-icon>
   </button>
+  <a mat-icon-button target="_blank" href="https://github.com/BlueNc/thotify">
+    <mat-icon style="font-size: 1.5em;" fontSet="fab" fontIcon="fa-github"></mat-icon>
+  </a>
+
 </mat-toolbar>

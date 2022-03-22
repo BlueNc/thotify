@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { debounceTime } from  'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { CacheDialogComponent } from '../cache-dialog/cache-dialog.component';
 
 @Component({
@@ -12,6 +13,8 @@ import { CacheDialogComponent } from '../cache-dialog/cache-dialog.component';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+
+  public version: string = environment.version;
 
   searchControl = new FormControl();
   searchMode: boolean = false;

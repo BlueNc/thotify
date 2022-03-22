@@ -1,7 +1,10 @@
 <div *ngIf="application">
   <p class="application">
     ======================================<br>
-    <strong style="margin-left: 10px">{{application.name}}</strong><br>
+    <span class="indent">
+      <mat-icon class="inline-icon">apps</mat-icon>
+      <strong>{{application.name}}</strong>
+    </span><br>
     ======================================<br>
   </p>
   <p>
@@ -23,11 +26,11 @@
     <span class="installation">
       === Installations ===
     </span><br>
-    <span *ngFor="let env of application.installations_by_env_srv" style="margin-left: 10px;">
+    <span *ngFor="let env of application.installations_by_env_srv" class="indent">
       <strong class="environment">{{env.environment_name}}</strong><br>
-      <span *ngFor="let server of env.servers" style="margin-left: 20px;">
+      <span *ngFor="let server of env.servers" class="indent">
         <span thotifyLink="server" class="server">{{server.name}}</span><br>
-        <span *ngFor="let installation of server.installations" style="margin-left: 30px;">
+        <span *ngFor="let installation of server.installations" class="indent">
           <span thotifyLink="component" class="component">{{installation.component_name}}</span>
           <span *ngIf="installation.ports"> - port: <span class="installation">{{installation.ports}}</span></span>
           <span *ngIf="installation.last_deployment">
@@ -43,9 +46,9 @@
     <span class="db_server">
       === DB Servers ===
     </span><br>
-    <span *ngFor="let env of application.db_roles_by_env" style="margin-left: 10px;">
+    <span *ngFor="let env of application.db_roles_by_env" class="indent">
       <strong class="environment">{{env.environment_name}}</strong><br>
-      <span *ngFor="let db_role of env.db_roles" style="margin-left: 20px;">
+      <span *ngFor="let db_role of env.db_roles" class="indent">
         <span class="db_role">{{db_role.name}}</span> - <span class="db_instance">{{db_role.instance.name}}</span> - <span thotifyLink="server" class="db_server">{{db_role.instance.server_name}}</span><br>
       </span>
     </span>
@@ -54,13 +57,13 @@
     <span class="link">
       === Links ===
     </span><br>
-    <span *ngFor="let link of application.links" style="margin-left: 10px;">
+    <span *ngFor="let link of application.links" class="indent">
       <span class="component" thotifyLink="component">{{link.component_src}}</span><strong class="link"> {{link.type}} </strong><span class="component" thotifyLink="component">{{link.component_dst}}</span> - <span class="faded">{{link.description}}</span><br>
     </span>
     <span class="link">
       ---
     </span><br>
-    <span *ngFor="let link of application.linked_by" style="margin-left: 10px;">
+    <span *ngFor="let link of application.linked_by" class="indent">
       <span class="component" thotifyLink="component">{{link.component_src}}</span><strong class="link"> {{link.type}} </strong><span class="component" thotifyLink="component">{{link.component_dst}}</span> - <span class="faded">{{link.description}}</span><br>
     </span>
   </p>

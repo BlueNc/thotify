@@ -1,7 +1,10 @@
 <div *ngIf="component">
   <p class="component">
     ======================================<br>
-    <strong style="margin-left: 10px">{{component.name}}</strong><br>
+    <span class="indent">
+      <mat-icon class="inline-icon">settings_applications</mat-icon>
+      <strong>{{component.name}}</strong>
+    </span><br>
     ======================================<br>
   </p>
   <p>
@@ -10,16 +13,15 @@
   <p>
     <span>Type : {{component.type}}</span><br>
     <span *ngIf="component.application">
-      <span>Application :</span><strong class="application"><a thotifyLink="application"> {{component.application_name}}</a></strong><br>
-      <span>
-        <span style="margin-left: 10px">Description : {{component.application?.description}}</span><br>
-        <span style="margin-left: 10px" class="direction">Direction :<strong> {{component.application?.direction}}</strong></span><br>
-        <span style="margin-left: 10px" class="component">Components :
+      Application : <strong class="application"><a thotifyLink="application">{{component.application_name}}</a></strong><br>
+      <span class="indent">
+        Description : {{component.application?.description}}<br>
+        Direction : <strong class="direction">{{component.application?.direction}}</strong><br>
+        Components :
           <span *ngFor="let component of component_names; let last = last">
-            <strong thotifyLink="component">{{component}}</strong>
+            <strong class="component" thotifyLink="component">{{component}}</strong>
             <span *ngIf="!last">, </span>
-          </span>
-        </span><br>
+          </span><br>
       </span>
     </span>
   </p>
@@ -27,10 +29,12 @@
     <span class="installation">
       === Installations ===
     </span><br>
-    <span *ngFor="let env of component.installations_by_env" style="margin-left: 10px;">
+    <span *ngFor="let env of component.installations_by_env" class="indent">
       <strong class="environment">{{env.environment_name}}</strong><br>
-      <span *ngFor="let installation of env.installations" style="margin-left: 20px;">
-        <span [thotifyLink]="['component', component.name, 'installation', installation.server_name]">(installation)</span>
+      <span *ngFor="let installation of env.installations" class="indent">
+        <span [thotifyLink]="['component', component.name, 'installation', installation.server_name]">
+          <mat-icon class="installation inline-icon" fontSet="fas" fontIcon="fa-cube"></mat-icon>
+        </span>
         <span thotifyLink="server" class="server">{{installation.server_name}}</span>
         <span *ngIf="installation.ports"> - port: <span class="installation">{{installation.ports}}</span></span>
         <span *ngIf="installation.last_deployment">
@@ -45,9 +49,9 @@
     <span class="db_role">
       === DB Roles ===
     </span><br>
-    <span *ngFor="let env of component.db_roles_by_env" style="margin-left: 10px;">
+    <span *ngFor="let env of component.db_roles_by_env" class="indent">
       <strong class="environment">{{env.environment_name}}</strong><br>
-      <span *ngFor="let db_role of env.db_roles" style="margin-left: 20px;">
+      <span *ngFor="let db_role of env.db_roles" class="indent">
         <span class="db_role">{{db_role.name}}</span> - <span class="db_instance">{{db_role.instance_name}}</span> - <a thotifyLink="server" class="db_server">{{db_role.server_name}}</a><br>
       </span>
     </span>
@@ -56,18 +60,18 @@
     <span class="link">
       === Links ===
     </span><br>
-    <span *ngFor="let link_type of component.links_by_type | keyvalue" style="margin-left: 10px;">
+    <span *ngFor="let link_type of component.links_by_type | keyvalue" class="indent">
       <strong class="link">{{link_type.key}}</strong><br>
-      <span *ngFor="let link of link_type.value" style="margin-left: 20px;">
+      <span *ngFor="let link of link_type.value" class="indent">
         <span class="component" thotifyLink="component">{{link.component_dst}}</span> - <span class="faded">{{link.description}}</span><br>
       </span>
     </span>
     <span class="link">
       ---
     </span><br>
-    <span *ngFor="let link_type of component.linked_by_type | keyvalue" style="margin-left: 10px;">
+    <span *ngFor="let link_type of component.linked_by_type | keyvalue" class="indent">
       <strong class="link">{{link_type.key}} by</strong><br>
-      <span *ngFor="let link of link_type.value" style="margin-left: 20px;">
+      <span *ngFor="let link of link_type.value" class="indent">
         <a thotifyLink="component" class="component">{{link.component_src}}</a> - <span class="faded">{{link.description}}</span><br>
       </span>
     </span>
