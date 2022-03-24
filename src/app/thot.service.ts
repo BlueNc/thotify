@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Server } from './server/server.model';
+import { DbInstance, Server } from './server/server.model';
 import { Application } from './application/application.model';
 import { environment } from './../environments/environment';
 import { ThotComponentDetail } from './component/component.model';
 import { Installation } from './installation/installation.model';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { DbInstanceDetail } from './db-instance/db-instance.model';
 
 
 @Injectable()
@@ -17,6 +18,14 @@ export class ThotService {
 
   getServer(name: string) {
     return this.http.get<Server>(`${this.thotUrl}/server/${name}`);
+  }
+
+  getDbInstances(server_name: string) {
+    return this.http.get<[DbInstance]>(`${this.thotUrl}/server/${server_name}/db_instance`);
+  }
+
+  getDbInstance(server_name: string, db_instance_name: string) {
+    return this.http.get<DbInstanceDetail>(`${this.thotUrl}/server/${server_name}/db_instance/${db_instance_name}`);
   }
 
   listServer() {

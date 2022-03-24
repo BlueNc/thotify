@@ -51,8 +51,12 @@
     </span><br>
     <span *ngFor="let env of component.db_roles_by_env" class="indent">
       <strong class="environment">{{env.environment_name}}</strong><br>
-      <span *ngFor="let db_role of env.db_roles" class="indent">
-        <span class="db_role">{{db_role.name}}</span> - <span class="db_instance">{{db_role.instance_name}}</span> - <a thotifyLink="server" class="db_server">{{db_role.server_name}}</a><br>
+      <span *ngFor="let dbRole of env.db_roles" class="indent">
+        <span class="db_role">{{dbRole.name}}</span>
+         -
+        <span class="db_instance" [thotifyLink]="['server', dbRole.server_name, 'db_instance', dbRole.instance_name]">{{dbRole.instance_name}}</span>
+         -
+        <a thotifyLink="server" class="db_server">{{dbRole.server_name}}</a><br>
       </span>
     </span>
   </p>

@@ -29,6 +29,9 @@
       === Installed components ===
     </span><br>
     <span *ngFor="let installation of server.installations" class="indent">
+      <span [thotifyLink]="['component', installation.component_name, 'installation', installation.server_name]">
+        <mat-icon class="installation inline-icon" fontSet="fas" fontIcon="fa-cube"></mat-icon>
+      </span>
       <strong class="component">
         <a thotifyLink="component">{{installation.component_name}}</a>
       </strong>
@@ -39,6 +42,24 @@
          - version: <span class="installation">{{installation.last_deployment?.version}}</span>
         <span class="faded"> (deployed on {{installation.last_deployment?.date_of_deployment | date:'medium'}})</span>
       </span><br>
+    </span>
+  </p>
+  <p *ngIf="db_instances.length > 0">
+    <span class="db_instance">
+      === DB Instances ===
+    </span><br>
+    <span *ngFor="let instance of db_instances" class="indent">
+      <strong class="db_instance" [thotifyLink]="['server', server.name, 'db_instance', instance.name]">
+        {{instance.name}}
+      </strong><br>
+      <span class="indent">
+        IP : {{instance.ip}}  Port : {{instance.port}}<br>
+        DBMS : <span class="dbms">{{instance.dbms.name}} {{instance.dbms.version}}</span><br>
+        Role : {{instance.role}}<br>
+        Cluster : {{instance.cluster}}<br>
+        Creation : {{instance.date_creation}}<br>
+        Status : <strong class="active">{{instance.status}}</strong> since {{instance.date_maj_status}}<br>
+      </span>
     </span>
   </p>
 </div>

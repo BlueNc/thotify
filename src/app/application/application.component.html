@@ -31,6 +31,9 @@
       <span *ngFor="let server of env.servers" class="indent">
         <span thotifyLink="server" class="server">{{server.name}}</span><br>
         <span *ngFor="let installation of server.installations" class="indent">
+          <span [thotifyLink]="['component', installation.component_name, 'installation', server.name]">
+            <mat-icon class="installation inline-icon" fontSet="fas" fontIcon="fa-cube"></mat-icon>
+          </span>
           <span thotifyLink="component" class="component">{{installation.component_name}}</span>
           <span *ngIf="installation.ports"> - port: <span class="installation">{{installation.ports}}</span></span>
           <span *ngIf="installation.last_deployment">
@@ -48,8 +51,12 @@
     </span><br>
     <span *ngFor="let env of application.db_roles_by_env" class="indent">
       <strong class="environment">{{env.environment_name}}</strong><br>
-      <span *ngFor="let db_role of env.db_roles" class="indent">
-        <span class="db_role">{{db_role.name}}</span> - <span class="db_instance">{{db_role.instance.name}}</span> - <span thotifyLink="server" class="db_server">{{db_role.instance.server_name}}</span><br>
+      <span *ngFor="let dbRole of env.db_roles" class="indent">
+        <span class="db_role">{{dbRole.name}}</span>
+         -
+        <span class="db_instance" [thotifyLink]="['server', dbRole.instance.server_name, 'db_instance', dbRole.instance.name]">{{dbRole.instance.name}}</span>
+         -
+        <span thotifyLink="server" class="db_server">{{dbRole.instance.server_name}}</span><br>
       </span>
     </span>
   </p>

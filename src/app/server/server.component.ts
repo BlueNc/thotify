@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { ThotService } from '../thot.service';
 
-import { Server } from './server.model';
+import { DbInstance, Server } from './server.model';
 
 
 @Component({
@@ -16,6 +16,7 @@ export class ServerComponent implements OnInit, OnDestroy {
 
   private sub: Subscription = new Subscription();
   server: Server|undefined;
+  db_instances: DbInstance[] = [];
   error: any;
 
   pending: boolean = false;
@@ -32,10 +33,15 @@ export class ServerComponent implements OnInit, OnDestroy {
         map(params => params.get("serverName") || ""),
         tap(_ => this.pending = true),
         tap(_ => this.error = undefined),
-        switchMap(serverName => this.thotService.getServer(serverName))
+        switchMap(serverName => forkJoin({
+            server: this.thotService.getServer(serverName),
+            db_instances: this.thotService.getDbInstances(serverName)
+          })
+        )
       ).subscribe(
-        server => {
-          this.server = server;
+        values => {
+          this.server = values.server;
+          this.db_instances = values.db_instances;
           this.pending = false;
         },
         error => {

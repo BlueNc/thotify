@@ -42,3 +42,26 @@ export interface Server {
   virtual_ips: string[];
   zone: string;
 }
+
+export interface Dbms {
+  editor: string;
+  id: number;
+  name: string;
+  version: string;
+}
+
+export interface DbInstance {
+  cluster: boolean;
+  date_creation: string;
+  date_maj_status: string;
+  dbid?: any;
+  dbms: Dbms;
+  id: number;
+  ip: string;
+  name: string;
+  port: number;
+  role: string;
+  server_name: string;
+  server_status: string;
+  status: string;
+}

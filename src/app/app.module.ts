@@ -32,6 +32,7 @@ import { LoaderInterceptor } from './interceptors/loader-interceptor.service';
 import { LoaderComponent } from './loader/loader.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { SkeletonLoaderComponent } from './skeleton-loader/skeleton-loader.component';
+import { DbInstanceComponent } from './db-instance/db-instance.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { SkeletonLoaderComponent } from './skeleton-loader/skeleton-loader.compo
     NotFoundComponent,
     HomeComponent,
     LoaderComponent,
-    SkeletonLoaderComponent
+    SkeletonLoaderComponent,
+    DbInstanceComponent
   ],
   imports: [
     BrowserModule,

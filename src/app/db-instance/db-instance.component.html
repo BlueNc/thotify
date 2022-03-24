@@ -1,0 +1,55 @@
+<div *ngIf="instance">
+  <p class="db_instance">
+    ======================================<br>
+    <span class="indent">
+      <mat-icon class="inline-icon" fontSet="fas" fontIcon="fa-database"></mat-icon>
+      <strong>{{instance.name}}</strong>
+    </span><br>
+    ======================================<br>
+  </p>
+  <p>
+    IP : {{instance.ip}}  Port : {{instance.port}}<br>
+    DBMS : <span class="dbms">{{instance.dbms.name}} {{instance.dbms.version}}</span><br>
+    Role : {{instance.role}}<br>
+    Cluster : {{instance.cluster}}<br>
+    Creation : {{instance.date_creation}}<br>
+    Status : <strong class="active">{{instance.status}}</strong> since {{instance.date_maj_status}}<br>
+  </p>
+  <p>
+    Server : <strong class="server" thotifyLink="server">{{instance.server.name}}</strong><br>
+    <span class="indent">
+      Environment : <strong class="environment">{{instance.server.env}}</strong><br>
+      Zone : <strong class="zone">{{instance.server.zone}}</strong><br>
+      Ips : <strong class="ip">{{instance.server.ip}}</strong><br>
+      Virtual Ips : <strong class="virtual_ip">{{instance.server.virtual_ips}}</strong><br>
+      OS : <strong>{{instance.server.os_name}} {{instance.server.os_version}}</strong><br>
+      CPU : <strong>{{instance.server.cpu}}</strong>  RAM : <strong>{{instance.server.ram}}</strong> Mo<br>
+      Status : <strong class="active">{{instance.server.status}}</strong> since {{instance.server.date_maj_status}}<br>
+    </span>
+  </p>
+  <p>
+    <span class="database">=== Databases ===</span><br>
+    <span *ngFor="let database of instance.databases">
+      <strong class="database">{{database.name}}</strong> (owner: <span class="db_role">{{database.owner.name}}</span>)<br>
+    </span>
+  </p>
+  <p>
+    <span class="db_role">=== Roles ===</span><br>
+    <span *ngFor="let type of rolesByType| keyvalue">
+      <strong >{{type.key}}</strong><br>
+      <span *ngFor="let role of type.value" class="indent">
+        <strong class="db_role">{{role.name}}</strong>
+        <span *ngIf="role.component">
+           - <span class="component" thotifyLink="component">{{role.component.name}}</span>
+        </span>
+        <br>
+      </span>
+    </span>
+  </p>
+</div>
+<div *ngIf="error" class="error">
+  {{error.message}}
+</div>
+<div *ngIf="pending">
+  <thotify-skeleton-loader></thotify-skeleton-loader>
+</div>
