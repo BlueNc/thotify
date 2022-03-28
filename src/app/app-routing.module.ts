@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ApplicationComponent } from './application/application.component';
 import { ComponentComponent } from './component/component.component';
 import { DbInstanceComponent } from './db-instance/db-instance.component';
+import { DbRoleComponent } from './db-role/db-role.component';
 import { HomeComponent } from './home/home.component';
 import { InstallationComponent } from './installation/installation.component';
 import { MainComponent } from './main/main.component';
@@ -55,6 +56,10 @@ const routes: Routes = [
       {
         path: 'server/:serverName/db_instance/:dbInstanceName',
         component: DbInstanceComponent
+      },
+      {
+        path: 'server/:serverName/db_instance/:dbInstanceName/db_role/:dbRoleName',
+        component: DbRoleComponent
       }
     ]
   },

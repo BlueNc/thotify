@@ -33,6 +33,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { SkeletonLoaderComponent } from './skeleton-loader/skeleton-loader.component';
 import { DbInstanceComponent } from './db-instance/db-instance.component';
+import { DbRoleComponent } from './db-role/db-role.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { DbInstanceComponent } from './db-instance/db-instance.component';
     HomeComponent,
     LoaderComponent,
     SkeletonLoaderComponent,
-    DbInstanceComponent
+    DbInstanceComponent,
+    DbRoleComponent
   ],
   imports: [
     BrowserModule,

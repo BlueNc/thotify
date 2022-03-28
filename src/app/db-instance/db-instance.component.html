@@ -38,7 +38,7 @@
     <span *ngFor="let type of rolesByType| keyvalue">
       <strong >{{type.key}}</strong><br>
       <span *ngFor="let role of type.value" class="indent">
-        <strong class="db_role">{{role.name}}</strong>
+        <strong class="db_role" [thotifyLink]="['server', role.instance.server_name, 'db_instance', role.instance.name, 'db_role', role.name]">{{role.name}}</strong>
         <span *ngIf="role.component">
            - <span class="component" thotifyLink="component">{{role.component.name}}</span>
         </span>

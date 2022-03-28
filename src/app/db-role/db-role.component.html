@@ -1,0 +1,70 @@
+<div *ngIf="role">
+  <p class="db_role">
+    ======================================<br>
+    <span class="indent">
+      <mat-icon class="inline-icon" fontSet="fas" fontIcon="fa-database"></mat-icon>
+      <mat-icon class="inline-icon" fontSet="fas" fontIcon="fa-user-shield"></mat-icon>
+      <strong>{{role.name}}</strong>
+    </span><br>
+    ======================================<br>
+  </p>
+  <p>
+    Type : <strong>{{role.type}}</strong><br>
+    Status : <strong class="active">{{role.status}}</strong> since {{role.date_maj_status}}<br>
+  </p>
+  <p *ngIf="role.component">
+    Component : <strong class="component" thotifyLink="component">{{role.component.name}}</strong><br>
+    <span class="indent">
+      Type : <strong>{{role.component.type}}</strong><br>
+      <span *ngIf="role.component.application">
+        Application : <strong class="application"><a thotifyLink="application">{{role.component.application.name}}</a></strong><br>
+        <span class="indent">
+          Direction :<strong class="direction"> {{role.component.application?.direction}}</strong><br>
+        </span>
+      </span>
+    </span>
+  </p>
+  <p>
+    Instance : <strong class="db_instance" [thotifyLink]="['server', role.instance.server.name, 'db_instance', role.instance.name]">
+      {{role.instance.name}}
+    </strong><br>
+    <span class="indent">
+      IP : {{role.instance.ip}}  Port : {{role.instance.port}}<br>
+      DBMS : <span class="dbms">{{role.instance.dbms.name}} {{role.instance.dbms.version}}</span><br>
+      Role : {{role.instance.role}}<br>
+      Cluster : {{role.instance.cluster}}<br>
+      Creation : {{role.instance.date_creation}}<br>
+      Status : <strong class="active">{{role.instance.status}}</strong> since {{role.instance.date_maj_status}}<br>
+    </span>
+  </p>
+  <p>
+    Server : <strong class="server" thotifyLink="server">{{role.instance.server.name}}</strong><br>
+    <span class="indent">
+      Environment : <strong class="environment">{{role.instance.server.env}}</strong><br>
+      Zone : <strong class="zone">{{role.instance.server.zone}}</strong><br>
+      Ips : <strong class="ip">{{role.instance.server.ip}}</strong><br>
+      Virtual Ips : <strong class="virtual_ip">{{role.instance.server.virtual_ips}}</strong><br>
+      OS : <strong>{{role.instance.server.os_name}} {{role.instance.server.os_version}}</strong><br>
+      CPU : <strong>{{role.instance.server.cpu}}</strong>  RAM : <strong>{{role.instance.server.ram}}</strong> Mo<br>
+      Status : <strong class="active">{{role.instance.server.status}}</strong> since {{role.instance.server.date_maj_status}}<br>
+    </span>
+  </p>
+  <p>
+    <span class="privilege">=== Databases owned ===</span><br>
+    <span *ngFor="let database of role.owned_databases">
+      <span class="database">{{database.name}}</span><br>
+    </span>
+  </p>
+  <p>
+    <span class="privilege">=== Privileges ===</span><br>
+    <span *ngFor="let privilege of role.privileges">
+      <span class="database">{{privilege.database.name}}</span>: <span class="privilege">{{privilege.privilege}}</span><br>
+    </span>
+  </p>
+</div>
+<div *ngIf="error" class="error">
+  {{error.message}}
+</div>
+<div *ngIf="pending">
+  <thotify-skeleton-loader></thotify-skeleton-loader>
+</div>

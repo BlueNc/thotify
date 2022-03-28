@@ -8,10 +8,12 @@ import { Installation } from './installation/installation.model';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { DbInstanceDetail } from './db-instance/db-instance.model';
+import { DbRole } from './db-role/db-role.model';
 
 
 @Injectable()
 export class ThotService {
+
   thotUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
@@ -26,6 +28,10 @@ export class ThotService {
 
   getDbInstance(server_name: string, db_instance_name: string) {
     return this.http.get<DbInstanceDetail>(`${this.thotUrl}/server/${server_name}/db_instance/${db_instance_name}`);
+  }
+
+  getDbRole(serverName: string, instanceName: string, roleName: string) {
+    return this.http.get<DbRole>(`${this.thotUrl}/server/${serverName}/db_instance/${instanceName}/db_role/${roleName}`);
   }
 
   listServer() {
