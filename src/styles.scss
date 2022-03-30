@@ -39,6 +39,15 @@ a {
   color: inherit; /* blue colors for links too */
 }
 
+.context-toolbar {
+  float: right;
+  margin-right: 20px;
+
+  button {
+    margin-left: 10px;
+  }
+}
+
 mat-icon.inline-icon {
   height: inherit;
   font-size: 1.2rem;

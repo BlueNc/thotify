@@ -34,6 +34,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { SkeletonLoaderComponent } from './skeleton-loader/skeleton-loader.component';
 import { DbInstanceComponent } from './db-instance/db-instance.component';
 import { DbRoleComponent } from './db-role/db-role.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { DbRoleComponent } from './db-role/db-role.component';
     MatListModule,
     MatDialogModule,
     NgxSkeletonLoaderModule,
+    MatMenuModule,
     FormsModule,
     ReactiveFormsModule
   ],

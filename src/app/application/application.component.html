@@ -1,4 +1,13 @@
 <div *ngIf="application">
+  <div class="context-toolbar">
+    <a *ngIf="application.category || application.classification" mat-raised-button color="accent" [href]="getDexUrl()" target="_blank"><mat-icon>description</mat-icon> DEX</a>
+    <button mat-raised-button color="accent" [matMenuTriggerFor]="menuDiagrams"><mat-icon>account_tree</mat-icon> Diagrams <mat-icon>arrow_drop_down</mat-icon></button>
+    <mat-menu #menuDiagrams="matMenu">
+      <div *ngFor="let env of application.installations_by_env_srv">
+        <a mat-menu-item [href]="getDiagramUrl(env.environment_name)" target="_blank">{{env.environment_name}}</a>
+      </div>
+    </mat-menu>
+  </div>
   <p class="application">
     ======================================<br>
     <span class="indent">

@@ -50,4 +50,12 @@ export class ApplicationComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
+
+  getDiagramUrl(env: string): string {
+    return `https://thot.ref.gnc/application/${this.application?.name}/diagram?env=${env}`
+  }
+
+  getDexUrl(): string {
+    return `https://confluence.prod.gnc/display/KBINFRAS/DEX+${this.application?.name}`
+  }
 }

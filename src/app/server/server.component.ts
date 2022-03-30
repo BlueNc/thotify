@@ -54,4 +54,8 @@ export class ServerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
+
+  getGrafanaUrl(): string {
+    return `https://grafana.hydra.gnc/d/sBdB97Nnk/${this.server?.name}-systeme-24h?orgId=1`
+  }
 }
