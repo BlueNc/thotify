@@ -1,6 +1,6 @@
 {
   "name": "thotify",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -34,6 +34,7 @@
     "@types/chrome": "0.0.145",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
+    "auto-changelog": "2.4.0",
     "jasmine-core": "~3.7.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
@@ -41,5 +42,10 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "typescript": "~4.3.2"
+  },
+  "auto-changelog": {
+    "template": "keepachangelog",
+    "unreleased": false,
+    "commitLimit": false
   }
 }

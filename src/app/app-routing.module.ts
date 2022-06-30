@@ -5,6 +5,7 @@ import { ApplicationComponent } from './application/application.component';
 import { ComponentComponent } from './component/component.component';
 import { DbInstanceComponent } from './db-instance/db-instance.component';
 import { DbRoleComponent } from './db-role/db-role.component';
+import { GettingStartedComponent } from './getting-started/getting-started.component';
 import { HomeComponent } from './home/home.component';
 import { InstallationComponent } from './installation/installation.component';
 import { MainComponent } from './main/main.component';
@@ -36,6 +37,10 @@ const routes: Routes = [
       {
         path: 'loader',
         component: SkeletonLoaderComponent
+      },
+      {
+        path: 'getting-started',
+        component: GettingStartedComponent
       },
       {
         path: 'server/:serverName',

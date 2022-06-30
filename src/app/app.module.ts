@@ -35,6 +35,10 @@ import { SkeletonLoaderComponent } from './skeleton-loader/skeleton-loader.compo
 import { DbInstanceComponent } from './db-instance/db-instance.component';
 import { DbRoleComponent } from './db-role/db-role.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { GettingStartedComponent } from './getting-started/getting-started.component';
 
 
 @NgModule({
@@ -55,7 +59,8 @@ import { MatMenuModule } from '@angular/material/menu';
     LoaderComponent,
     SkeletonLoaderComponent,
     DbInstanceComponent,
-    DbRoleComponent
+    DbRoleComponent,
+    GettingStartedComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +75,9 @@ import { MatMenuModule } from '@angular/material/menu';
     MatProgressBarModule,
     MatListModule,
     MatDialogModule,
+    MatGridListModule,
+    MatStepperModule,
+    MatTooltipModule,
     NgxSkeletonLoaderModule,
     MatMenuModule,
     FormsModule,

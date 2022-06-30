@@ -11,10 +11,13 @@
       <input #searchBox aria-label="search" placeholder="Search" type="search" [formControl]="searchControl" name="search" autocomplete="off">
     </form>
   </div>
-  <button mat-icon-button aria-label="Cache" (click)="showCache()">
+  <button mat-icon-button aria-label="Cache" (click)="showCache()" matTooltip="Cache informations">
     <mat-icon>source</mat-icon>
   </button>
-  <a mat-icon-button target="_blank" href="https://github.com/BlueNc/thotify">
+  <button mat-icon-button aria-label="Getting Started" routerLink="getting-started" matTooltip="Getting Started">
+    <mat-icon>rocket_launch</mat-icon>
+  </button>
+  <a mat-icon-button target="_blank" href="https://github.com/BlueNc/thotify" matTooltip="Thotify repository">
     <mat-icon style="font-size: 1.5em;" fontSet="fab" fontIcon="fa-github"></mat-icon>
   </a>
 
