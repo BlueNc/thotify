@@ -21,3 +21,9 @@ chrome.omnibox.onInputEntered.addListener((text) => {
     url: chrome.runtime.getURL('index.html') + '#/search?value=' +  encodeURIComponent(text)
   });
 });
+
+chrome.runtime.onInstalled.addListener(function (object) {
+  if (object.reason === 'install') {
+    chrome.tabs.create({ url: chrome.runtime.getURL('index.html') + '#/getting-started'});
+  }
+});
