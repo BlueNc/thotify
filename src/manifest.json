@@ -1,6 +1,6 @@
 {
   "name": "Thotify",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "omnibox": { "keyword" : "thot" },
   "description": "Thot extension",
   "manifest_version": 3,
