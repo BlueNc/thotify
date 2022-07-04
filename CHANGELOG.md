@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.9.0 (2022-07-04)
+
+#### New Features
+
+* ouverture de la page getting started à l'installation de l'extension
+#### Fixes
+
+* correction de l'icon getting started
+
+Full set of changes: [`1.8.0...1.9.0`](https://github.com/BlueNc/thotify/compare/1.8.0...1.9.0)
+
 ## 1.8.0 (2022-06-30)
 
 #### New Features
