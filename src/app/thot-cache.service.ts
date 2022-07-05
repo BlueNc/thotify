@@ -97,8 +97,20 @@ export class ThotCacheService {
           }));
           return ips.concat(currIps);
         }, [] as ThotNode[]);
+        let virtualIpAddress = servers.reduce((ips, server) => {
+          let currIps = server.virtual_ips.map(ip => ({
+            name: ip,
+            routePath: ['server', server.name],
+            type: 'Virtual IP address',
+            icon: 'alternate_email',
+            page: 'server',
+            description: server.name,
+            class: 'virtual_ip'
+          }));
+          return ips.concat(currIps);
+        }, [] as ThotNode[]);
 
-        return [...serverNames, ...ipAddress]
+        return [...serverNames, ...ipAddress, ...virtualIpAddress]
       })
     )
   }

@@ -5,8 +5,6 @@ import { Application } from './application/application.model';
 import { environment } from './../environments/environment';
 import { ThotComponentDetail } from './component/component.model';
 import { Installation } from './installation/installation.model';
-import { of } from 'rxjs';
-import { delay } from 'rxjs/operators';
 import { DbInstanceDetail } from './db-instance/db-instance.model';
 import { DbRole } from './db-role/db-role.model';
 
